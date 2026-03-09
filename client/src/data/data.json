@@ -1,0 +1,88 @@
+{
+  "quizId": "quiz_10234",
+  "title": "General Knowledge Quiz",
+  "description": "Test your basic knowledge",
+  "category": "General Knowledge",
+  "difficulty": "Medium",
+  "createdBy": {
+    "userId": "user_4582",
+    "username": "quizMaster"
+  },
+  "totalQuestions": 3,
+  "timePerQuestion": 20,
+  "createdAt": "2026-03-07T12:00:00Z",
+  "questions": [
+    {
+      "questionId": "Question 1",
+      "questionText": "What is the capital of France?",
+      "points": 10,
+      "options": [
+        {
+          "optionId": "A",
+          "text": "Paris"
+        },
+        {
+          "optionId": "B",
+          "text": "Madrid"
+        },
+        {
+          "optionId": "C",
+          "text": "Berlin"
+        },
+        {
+          "optionId": "D",
+          "text": "Rome"
+        }
+      ],
+      "correctAnswer": "A"
+    },
+    {
+      "questionId": "Question 2",
+      "questionText": "Which planet is known as the Red Planet?",
+      "points": 10,
+      "options": [
+        {
+          "optionId": "A",
+          "text": "Earth"
+        },
+        {
+          "optionId": "B",
+          "text": "Mars"
+        },
+        {
+          "optionId": "C",
+          "text": "Jupiter"
+        },
+        {
+          "optionId": "D",
+          "text": "Saturn"
+        }
+      ],
+      "correctAnswer": "B"
+    },
+    {
+      "questionId": "Question 3",
+      "questionText": "Who wrote 'Romeo and Juliet'?",
+      "points": 10,
+      "options": [
+        {
+          "optionId": "A",
+          "text": "Charles Dickens"
+        },
+        {
+          "optionId": "B",
+          "text": "William Shakespeare"
+        },
+        {
+          "optionId": "C",
+          "text": "Jane Austen"
+        },
+        {
+          "optionId": "D",
+          "text": "Mark Twain"
+        }
+      ],
+      "correctAnswer": "B"
+    }
+  ]
+}
