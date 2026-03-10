@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PORT, DB_URI, NODE_ENV } from "../config/env.js";
+import { DB_URI } from "../config/env.js";
 
 if (!DB_URI) {
   throw new Error(
