@@ -11,13 +11,19 @@ interface questionInterface {
   options: questionOptionInterface[];
 }
 function Home() {
+  // State Variables
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [questionIndex, setQuestionIndex] = useState(0);
+
+  // Question Variables
   const questions: questionInterface[] = data.questions;
   const question = questions[questionIndex];
+
+  // Handle Answer Storage
   const handleChange = (questionId: string, optionId: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: optionId }));
   };
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col gap-3">
@@ -71,6 +77,7 @@ function Home() {
           {questions.map((_, i) => {
             return (
               <button
+                key={`Question ${i + 1}`}
                 className="border-2 border-gray-700 relative flex items-center justify-center w-7 h-7 cursor-pointer"
                 onClick={() => {
                   setQuestionIndex(i);

@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import type { validUserInterface } from "./interface/interfaces";
+
 function App() {
   return (
     <Routes>

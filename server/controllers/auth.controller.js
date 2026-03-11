@@ -36,13 +36,9 @@ export const signUp = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    const token = jwt.sign({ userId: newUser._id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
-    });
     res.json({
       message: "Account created succesfully, login to continue.",
       error: false,
-      token,
       data: {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
