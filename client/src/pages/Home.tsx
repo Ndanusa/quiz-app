@@ -1,13 +1,23 @@
 import { useRef, useState, useEffect } from "react";
 import data from "../data/data.json";
+interface questionOptionInterface {
+  optionId: string;
+  text: string;
+}
+interface questionInterface {
+  questionId: string;
+  questionText: string;
+  points: number;
+  options: questionOptionInterface[];
+}
 function Home() {
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const question = data.questions[questionIndex];
-  const handleChange = (questionId, optionId) => {
+  const questions: questionInterface[] = data.questions;
+  const question = questions[questionIndex];
+  const handleChange = (questionId: string, optionId: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: optionId }));
   };
-
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col gap-3">
@@ -44,18 +54,31 @@ function Home() {
             onClick={() => {
               questionIndex > 0
                 ? setQuestionIndex(questionIndex - 1)
-                : setQuestionIndex(data.questions.length - 1);
+                : setQuestionIndex(questions.length - 1);
             }}>
             prev
           </button>
           <button
             onClick={() => {
-              questionIndex < data.questions.length - 1
+              questionIndex < questions.length - 1
                 ? setQuestionIndex(questionIndex + 1)
                 : setQuestionIndex(0);
             }}>
             next
           </button>
+        </div>
+        <div className="flex itms-center justify-between">
+          {questions.map((_, i) => {
+            return (
+              <button
+                className="border-2 border-gray-700 relative flex items-center justify-center w-7 h-7 cursor-pointer"
+                onClick={() => {
+                  setQuestionIndex(i);
+                }}>
+                {i + 1}
+              </button>
+            );
+          })}
         </div>
         <div>
           <button
