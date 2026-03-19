@@ -40,10 +40,17 @@ function App() {
   }
   return (
     <>
-      {isAuth && <div>Logged In</div>}
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route
+          path="/login"
+          element={isAuth ? <Navigate to={"/home"} /> : <Login />}
+        />
+        <Route
+          path="/home"
+          element={
+            isAuth ? <Home validUser={user} /> : <Navigate to={"/login"} />
+          }
+        />
       </Routes>
     </>
   );

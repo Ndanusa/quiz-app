@@ -9,10 +9,19 @@ interface questionInterface {
   questionText: string;
   points: number;
   options: questionOptionInterface[];
+  correctAnswer: string;
 }
-function Home() {
+interface loggedInUser {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  id: string;
+  password: string;
+}
+function Home({ validUser }: { validUser: loggedInUser }) {
   // State Variables
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
   // Question Variables
@@ -88,12 +97,7 @@ function Home() {
           })}
         </div>
         <div>
-          <button
-            onClick={() => {
-              console.log(answers);
-            }}>
-            Get Answers
-          </button>
+          <button onClick={() => {}}>Get Answers</button>
         </div>
       </div>
     </div>
