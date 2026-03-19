@@ -1,1 +1,96 @@
 @import "tailwindcss";
+
+.sqc-sm {
+  border-radius: 5px;
+}
+.sqc-md {
+  border-radius: 7px;
+}
+.sqc-lg {
+  border-radius: 10px;
+}
+.sqc-xl {
+  border-radius: 20px;
+}
+.sqc-2xl {
+  border-radius: 25px;
+}
+.sqc-3xl {
+  border-radius: 50px;
+}
+
+.sqc-2xl-tr {
+  border-top-right-radius: 25px;
+}
+.sqc-2xl-bl {
+  border-bottom-left-radius: 25px;
+}
+.sqc-2xl-br {
+  border-bottom-right-radius: 25px;
+}
+
+.sqc-tbr-lg {
+  corner-shape: superellipse(2);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.sqc-tbl-lg {
+  corner-shape: superellipse(2);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+@supports (corner-shape: superellipse(2)) {
+  .sqc-sm {
+    corner-shape: superellipse(2);
+    border-radius: 10px;
+  }
+  .sqc-md {
+    corner-shape: superellipse(2);
+    border-radius: 20px;
+  }
+  .sqc-lg {
+    corner-shape: superellipse(2);
+    border-radius: 30px;
+  }
+  .sqc-xl {
+    corner-shape: superellipse(2);
+    border-radius: 40px;
+  }
+  .sqc-2xl {
+    corner-shape: superellipse(2);
+    border-radius: 50px;
+  }
+  .sqc-3xl {
+    corner-shape: superellipse(2);
+    border-radius: 80px;
+  }
+
+  .sqc-2xl-tr {
+    corner-shape: superellipse(2);
+    border-top-right-radius: 50px;
+  }
+  .sqc-2xl-bl {
+    corner-shape: superellipse(2);
+    border-bottom-left-radius: 50px;
+  }
+  .sqc-2xl-br {
+    corner-shape: superellipse(2);
+    border-bottom-right-radius: 50px;
+  }
+  .sqc-tbl-lg {
+    corner-shape: superellipse(2);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+  .sqc-tbr-lg {
+    corner-shape: superellipse(2);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+}
