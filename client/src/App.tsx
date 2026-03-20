@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import CreateQuiz from "./pages/CreateQuiz";
 import TakeQuiz from "./pages/TakeQuiz";
+import Settings from "./pages/Settings";
 import { BACKEND_URI } from "./config/config.js";
 
 interface User {
@@ -100,6 +101,10 @@ function App() {
       <Route
         path="/take/:id"
         element={isAuth ? <TakeQuiz /> : <Navigate to="/login" replace />}
+      />
+      <Route
+        path="/settings"
+        element={isAuth ? <Settings /> : <Navigate to="/login" replace />}
       />
       <Route
         path="/play"

@@ -62,14 +62,14 @@ function TakeQuiz() {
 
   return (
     <div className="min-h-screen bg-[#f7f9fc] p-4">
-      <div className="mx-auto max-w-3xl bg-white p-5 rounded-2xl shadow">
+      <div className="mx-auto max-w-3xl bg-white p-5 rounded-2xl sqc-2xl shadow">
         <h1 className="text-2xl font-semibold">{quiz.title}</h1>
         <p className="text-sm text-slate-500">{quiz.description}</p>
         <div className="mt-4 space-y-3">
           {quiz.questions.map((q) => (
             <div
               key={q.questionId}
-              className="border border-slate-200 p-3 rounded-md">
+              className="border border-slate-200 p-3 rounded-md sqc-md">
               <p className="font-medium">{q.questionText}</p>
               <div className="mt-2 space-y-1">
                 {q.options.map((o) => (
@@ -93,12 +93,12 @@ function TakeQuiz() {
           ))}
         </div>
         <button
-          className="mt-3 px-3 py-2 rounded-md bg-black text-white"
+          className="mt-3 px-3 py-2 rounded-md sqc-md bg-black text-white"
           onClick={onSubmit}>
           Submit Quiz
         </button>
         {result && (
-          <div className="mt-3 p-3 border rounded-md bg-green-50 text-green-800">
+          <div className="mt-3 p-3 border rounded-md sqc-md bg-green-50 text-green-800">
             You scored {result.correct} / {result.total}
           </div>
         )}

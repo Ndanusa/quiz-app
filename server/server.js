@@ -22,7 +22,6 @@ app.use(
 
 // Routes
 app.use("/api/v1/auth", authRouter);
-import quizRouter from "./routes/quiz.routes.js";
 app.use("/api/v1/quiz", quizRouter);
 
 // Web Socket

@@ -70,7 +70,7 @@ function Home({ validUser }: { validUser: loggedInUser }) {
 
   return (
     <div className="min-h-screen bg-[#f6f7fb] p-4 flex items-center justify-center">
-      <div className="w-full max-w-2xl bg-white sqx-3xl rounded-4xl shadow-xl border border-slate-100 overflow-hidden">
+      <div className="mx-auto max-w-2xl bg-white sqc-3xl rounded-4xl shadow-xl border border-slate-100 overflow-hidden">
         <div className="p-6 md:p-8 space-y-4">
           <div className="text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
@@ -92,7 +92,7 @@ function Home({ validUser }: { validUser: loggedInUser }) {
                   {question.questionText}
                 </h2>
               </div>
-              <span className="text-xs font-medium text-slate-600 px-2 py-1 rounded-full bg-white border border-slate-200">
+              <span className="text-xs font-medium text-slate-600 px-2 py-1 rounded-full sqc-sm bg-white border border-slate-200">
                 {question.points} pts
               </span>
             </div>
@@ -155,7 +155,7 @@ function Home({ validUser }: { validUser: loggedInUser }) {
                 <button
                   key={`Question ${i + 1}`}
                   onClick={() => setQuestionIndex(i)}
-                  className={`w-8 h-8 rounded-full text-xs ${questionIndex === i ? "bg-black text-white" : "bg-white text-black border border-slate-300"}`}>
+                  className={`w-8 h-8 rounded-full sqc-3xl text-xs ${questionIndex === i ? "bg-black text-white" : "bg-white text-black border border-slate-300"}`}>
                   {i + 1}
                 </button>
               ))}

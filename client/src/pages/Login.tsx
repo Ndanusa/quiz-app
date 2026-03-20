@@ -149,7 +149,7 @@ function Login() {
                     name="email"
                     ref={emailRef}
                     placeholder="Enter your email"
-                    className={`placeholder:text-xs text-sm pl-8 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ebf4f0] py-2 px-3 sqc-lg mt-2 w-90 ${
+                    className={`placeholder:text-xs text-sm pl-8 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ebf4f0] py-2 px-3 sqc-lg rounded-md mt-2 w-90 ${
                       fieldError.email.error
                         ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
                         : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#78ac96]"
@@ -177,7 +177,7 @@ function Login() {
                     onChange={passwordInput}
                     name="password"
                     placeholder="Enter your password"
-                    className={`placeholder:text-xs text-sm px-8 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ebf4f0] py-2 sqc-lg mt-2 w-90 ${
+                    className={`placeholder:text-xs text-sm px-8 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ebf4f0] py-2 sqc-lg rounded-md mt-2 w-90 ${
                       fieldError.password.error
                         ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
                         : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#78ac96]"

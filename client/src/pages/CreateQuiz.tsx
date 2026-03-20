@@ -80,30 +80,30 @@ function CreateQuiz() {
 
   return (
     <div className="min-h-screen bg-[#f7f9fc] p-4">
-      <div className="mx-auto max-w-3xl bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+      <div className="mx-auto max-w-3xl bg-white p-6 md:p-8 rounded-2xl sqc-2xl shadow-lg">
         <h1 className="text-2xl font-semibold">Create New Quiz</h1>
         <div className="mt-3 space-y-2">
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Quiz title"
-            className="w-full border border-slate-300 rounded-md px-3 py-2"
+            className="w-full border border-slate-300 rounded-md sqc-md px-3 py-2"
           />
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Quiz description"
-            className="w-full border border-slate-300 rounded-md px-3 py-2"></textarea>
+            className="w-full border border-slate-300 rounded-md sqc-md px-3 py-2"></textarea>
         </div>
 
         <div className="mt-4 space-y-4">
           {questions.map((q, i) => (
             <div
               key={q.questionId}
-              className="border border-slate-200 rounded-xl p-3 bg-slate-50">
+              className="border border-slate-200 rounded-xl sqc-xl p-3 bg-slate-50">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-sm font-medium">Question {i + 1}</p>
-                <span className="text-xs px-2 py-1 rounded bg-black text-white">
+                <span className="text-xs px-2 py-1 rounded sqc-sm bg-black text-white">
                   {q.points} pts
                 </span>
               </div>
@@ -113,7 +113,7 @@ function CreateQuiz() {
                   updateQuestion(i, "questionText", e.target.value)
                 }
                 placeholder="Question text"
-                className="w-full border border-slate-300 rounded-md px-2 py-1"
+                className="w-full border border-slate-300 rounded-md sqc-md px-2 py-1"
               />
               <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
                 {q.options.map((opt, oi) => (
@@ -123,7 +123,7 @@ function CreateQuiz() {
                       value={opt.text}
                       onChange={(e) => updateOption(i, oi, e.target.value)}
                       placeholder={`Option ${opt.optionId}`}
-                      className="w-full border border-slate-300 rounded-md px-2 py-1"
+                      className="w-full border border-slate-300 rounded-md sqc-md px-2 py-1"
                     />
                   </div>
                 ))}
@@ -135,7 +135,7 @@ function CreateQuiz() {
                   onChange={(e) =>
                     updateQuestion(i, "correctAnswer", e.target.value)
                   }
-                  className="w-full border border-slate-300 rounded-md px-2 py-1 mt-1">
+                  className="w-full border border-slate-300 rounded-md sqc-md px-2 py-1 mt-1">
                   {q.options.map((o) => (
                     <option key={o.optionId} value={o.optionId}>
                       {o.optionId}
@@ -149,12 +149,12 @@ function CreateQuiz() {
         <div className="mt-3 flex gap-2">
           <button
             onClick={addQuestion}
-            className="px-3 py-2 rounded-md bg-black text-white">
+            className="px-3 py-2 rounded-md sqc-md bg-black text-white">
             Add Question
           </button>
           <button
             onClick={handleSubmit}
-            className="px-3 py-2 rounded-md bg-emerald-600 text-white">
+            className="px-3 py-2 rounded-md sqc-md bg-emerald-600 text-white">
             Save Quiz
           </button>
         </div>
