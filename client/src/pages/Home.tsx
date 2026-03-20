@@ -69,119 +69,121 @@ function Home({ validUser }: { validUser: loggedInUser }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 p-4 flex items-center justify-center">
-      <div className="w-full max-w-3xl bg-white/90 border border-slate-200 rounded-2xl shadow-xl p-5 md:p-8 space-y-5">
-        <div className="text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
-            Quiz challenge
-          </p>
-          <h1 className="text-3xl font-bold text-slate-800 mt-2">
-            {data.title}
-          </h1>
-          <p className="text-sm text-slate-600 mt-1">{data.description}</p>
-        </div>
+    <div className="min-h-screen bg-[#f6f7fb] p-4 flex items-center justify-center">
+      <div className="w-full max-w-2xl bg-white sqx-3xl rounded-4xl shadow-xl border border-slate-100 overflow-hidden">
+        <div className="p-6 md:p-8 space-y-4">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+              Quiz
+            </p>
+            <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mt-2">
+              {data.title}
+            </h1>
+            <p className="text-sm text-slate-500 mt-1">{data.description}</p>
+          </div>
 
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 md:p-5">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-xs uppercase text-gray-500">
-                Question {questionIndex + 1} of {questions.length}
-              </p>
-              <h2 className="text-xl font-semibold text-slate-800 mt-1">
-                {question.questionText}
-              </h2>
+          <div className="sqc-2xl rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div className="flex items-start justify-between gap-2 mb-3">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                  Question {questionIndex + 1}/{questions.length}
+                </p>
+                <h2 className="text-lg font-semibold text-slate-800 mt-1">
+                  {question.questionText}
+                </h2>
+              </div>
+              <span className="text-xs font-medium text-slate-600 px-2 py-1 rounded-full bg-white border border-slate-200">
+                {question.points} pts
+              </span>
             </div>
-            <span className="text-xs font-semibold text-blue-700 bg-blue-100 px-2 py-1 rounded-full">
-              {question.points} pts
-            </span>
+            <div className="space-y-2">
+              {question.options.map((option) => {
+                const selected =
+                  answers[question.questionId] === option.optionId;
+                return (
+                  <label
+                    key={option.optionId}
+                    className={`flex items-center gap-3 border sqc-2xl rounded-xl px-3 py-2 cursor-pointer transition ${selected ? "border-emerald-600 bg-emerald-50" : "border-slate-200 bg-white hover:border-slate-300"}`}>
+                    <input
+                      disabled={locked}
+                      type="radio"
+                      name={question.questionId}
+                      value={option.optionId}
+                      checked={selected}
+                      className="accent-emerald-600"
+                      onChange={() =>
+                        handleChange(question.questionId, option.optionId)
+                      }
+                    />
+                    <span
+                      className={
+                        selected
+                          ? "text-slate-900 font-medium"
+                          : "text-slate-700"
+                      }>
+                      {option.text}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
           </div>
-          <div className="space-y-2">
-            {question.options.map((option) => {
-              const selected = answers[question.questionId] === option.optionId;
-              return (
-                <label
-                  key={option.optionId}
-                  className={`flex items-center gap-3 border rounded-lg px-3 py-2 cursor-pointer transition ${
-                    selected
-                      ? "border-blue-500 bg-blue-50 shadow"
-                      : "border-slate-200 bg-white hover:border-indigo-400 hover:bg-indigo-50"
-                  }`}>
-                  <input
-                    disabled={locked}
-                    className="accent-blue-600"
-                    type="radio"
-                    name={question.questionId}
-                    value={option.optionId}
-                    checked={selected}
-                    onChange={() =>
-                      handleChange(question.questionId, option.optionId)
-                    }
-                  />
-                  <span
-                    className={`text-sm ${selected ? "text-slate-900 font-medium" : "text-slate-700"}`}>
-                    {option.text}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <button
-            className="px-3 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-800 transition"
-            onClick={() => {
-              setQuestionIndex((prev) =>
-                prev > 0 ? prev - 1 : questions.length - 1,
-              );
-            }}>
-            Previous
-          </button>
-          <button
-            className="px-3 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-800 transition"
-            onClick={() => {
-              setQuestionIndex((prev) =>
-                prev < questions.length - 1 ? prev + 1 : 0,
-              );
-            }}>
-            Next
-          </button>
-          <div className="flex flex-wrap gap-2">
-            {questions.map((_, i) => (
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex gap-2">
               <button
-                key={`Question ${i + 1}`}
-                className={`w-8 h-8 rounded-full border transition ${
-                  questionIndex === i
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-slate-700 border-slate-300 hover:border-blue-400"
-                }`}
-                onClick={() => setQuestionIndex(i)}>
-                {i + 1}
+                className="px-3 py-2 sqc-2xl rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100"
+                onClick={() =>
+                  setQuestionIndex((prev) =>
+                    prev > 0 ? prev - 1 : questions.length - 1,
+                  )
+                }>
+                Previous
               </button>
-            ))}
+              <button
+                className="px-3 py-2 sqc-2xl rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100"
+                onClick={() =>
+                  setQuestionIndex((prev) =>
+                    prev < questions.length - 1 ? prev + 1 : 0,
+                  )
+                }>
+                Next
+              </button>
+            </div>
+            <div className="flex gap-1">
+              {questions.map((_, i) => (
+                <button
+                  key={`Question ${i + 1}`}
+                  onClick={() => setQuestionIndex(i)}
+                  className={`w-8 h-8 rounded-full text-xs ${questionIndex === i ? "bg-black text-white" : "bg-white text-black border border-slate-300"}`}>
+                  {i + 1}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <button
-            className={`px-4 py-2 rounded-lg font-semibold transition ${allAnswered && !locked ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-300 text-slate-600 cursor-not-allowed"}`}
-            onClick={verifyAnswers}
-            disabled={!allAnswered || locked}>
-            Verify Answers
-          </button>
-          <button
-            className="px-4 py-2 rounded-lg font-semibold bg-slate-600 text-white hover:bg-slate-700 transition"
-            onClick={restartQuiz}>
-            Restart Quiz
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              className={`px-4 py-2 sqc-2xl rounded-xl font-semibold transition ${allAnswered && !locked ? "bg-black text-white hover:bg-slate-900" : "bg-slate-200 text-slate-500 cursor-not-allowed"}`}
+              onClick={verifyAnswers}
+              disabled={!allAnswered || locked}>
+              Verify Answers
+            </button>
+            <button
+              className="px-4 py-2 sqc-2xl rounded-xl border border-black text-black bg-white hover:bg-slate-100"
+              onClick={restartQuiz}>
+              Restart Quiz
+            </button>
+          </div>
+
           {!allAnswered && !locked && (
-            <p className="text-xs text-amber-700 mt-1 w-full">
-              Answer all {questions.length} questions first.
+            <p className="text-xs text-slate-500">
+              Answer all questions before verifying.
             </p>
           )}
           {feedback && (
             <div
-              className={`mt-2 rounded-md p-2 text-sm w-full ${score !== null ? "bg-emerald-100 text-emerald-800" : allAnswered ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"}`}>
+              className={`rounded-xl sqc-2xl p-2 text-sm ${score !== null ? "bg-emerald-50 text-emerald-800" : "bg-black text-white"}`}>
               {feedback}
             </div>
           )}
