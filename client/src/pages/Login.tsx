@@ -2,10 +2,18 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URI } from "../config/config.js";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Mail01Icon, LockPasswordIcon } from "@hugeicons/core-free-icons";
+import {
+  Mail01Icon,
+  LockPasswordIcon,
+  ViewIcon,
+  ViewOffIcon,
+} from "@hugeicons/core-free-icons";
+import { Link } from "react-router-dom";
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const email = emailRef.current;
+  const [loading, setLoading] = useState(false);
+  const [passwordState, setPasswordState] = useState("password");
   const [loginDetail, setLoginDetail] = useState({
     email: "",
     password: "",
@@ -84,6 +92,7 @@ function Login() {
     }
     if (fieldError.email.error || fieldError.password.error) return;
     try {
+      setLoading(true);
       const res = await axios.post(
         `${BACKEND_URI}/api/v1/auth/sign-in`,
         loginDetail,
@@ -110,26 +119,28 @@ function Login() {
           password: { error: true, message },
         });
       }
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <>
       <div className="flex items-center justify-center h-screen">
-        <div>
+        <div className="border-gray-400 border px-10 py-10 flex">
+          <div></div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="email">
                 <p className={"text-sm"}>Email</p>
                 <div className="flex items-center relative">
-                  <span className="absolute bottom-2 left-2">
-                    <HugeiconsIcon
-                      icon={Mail01Icon}
-                      color={`${fieldError.email.error ? "#ff0000" : "#14794f"}`}
-                      size={19}
-                      strokeWidth={1.7}
-                    />
-                  </span>
+                  <HugeiconsIcon
+                    className="absolute bottom-2 left-2"
+                    icon={Mail01Icon}
+                    color={`${fieldError.email.error ? "#ff0000" : "#14794f"}`}
+                    size={19}
+                    strokeWidth={1.7}
+                  />
                   <input
                     onChange={emailInput}
                     name="email"
@@ -152,27 +163,38 @@ function Login() {
               <label htmlFor="password">
                 <p className="text-sm">Password</p>
                 <div className="flex items-center relative">
-                  <span className="absolute bottom-2 left-2">
-                    <HugeiconsIcon
-                      icon={LockPasswordIcon}
-                      color={`${fieldError.password.error ? "#ff0000" : "#14794f"}`}
-                      size={19}
-                      strokeWidth={1.7}
-                    />
-                  </span>
+                  <HugeiconsIcon
+                    className="absolute bottom-2 left-2"
+                    icon={LockPasswordIcon}
+                    color={`${fieldError.password.error ? "#ff0000" : "#14794f"}`}
+                    size={19}
+                    strokeWidth={1.7}
+                  />
                   <input
                     onChange={passwordInput}
                     name="password"
                     placeholder="Enter your password"
-                    className={`placeholder:text-xs text-sm pl-8 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ebf4f0] py-2 px-3 sqc-lg mt-2 w-90 ${
+                    className={`placeholder:text-xs text-sm px-8 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ebf4f0] py-2 sqc-lg mt-2 w-90 ${
                       fieldError.password.error
                         ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
                         : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#78ac96]"
                     }`}
-                    type="password"
+                    type={passwordState}
                     autoComplete="on"
                   />
+                  <HugeiconsIcon
+                    className="absolute right-3 bottom-2 cursor-pointer"
+                    onClick={() =>
+                      passwordState === "password"
+                        ? setPasswordState("text")
+                        : setPasswordState("password")
+                    }
+                    icon={passwordState === "password" ? ViewOffIcon : ViewIcon}
+                    size={19}
+                    strokeWidth={1.7}
+                  />
                 </div>
+
                 {fieldError.password.error && (
                   <div className="text-xs text-red-500 p-1">
                     {fieldError.password.message}
@@ -180,9 +202,15 @@ function Login() {
                 )}
               </label>
             </div>
+
+            <Link className="text-sm text-gray-500" to={`/reset`}>
+              Forgot password?
+            </Link>
+
             <button
               onClick={handleLogin}
-              className="bg-zinc-700 text-zinc-200 text-sm py-1.5 rounded-md">
+              disabled={loading}
+              className="bg-zinc-700 text-zinc-200 text-sm py-1.5 rounded-md disabled:bg-zinc-300 disabled:text-zinc-800">
               Login
             </button>
           </div>

@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+body {
+  font-family: "General Sans";
+}
+
+::-ms-reveal {
+  display: none;
+}
+
 .sqc-sm {
   border-radius: 5px;
 }
