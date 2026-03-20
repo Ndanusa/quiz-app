@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URI } from "../config/config.js";
 import { HugeiconsIcon } from "@hugeicons/react";
+import studyImage from "../assets/wise.png";
 import {
   Mail01Icon,
   LockPasswordIcon,
@@ -100,9 +101,9 @@ function Login() {
       console.log(res);
 
       if (res.statusText === "OK") {
-        // localStorage.setItem("user", JSON.stringify(res.data.data));
-        // localStorage.setItem("token", res.data.token);
-        // window.location.href = "/home";
+        localStorage.setItem("user", JSON.stringify(res.data.data));
+        localStorage.setItem("token", res.data.token);
+        window.location.href = "/home";
       }
     } catch (error) {
       const err = error.response.data;
@@ -127,8 +128,10 @@ function Login() {
   return (
     <>
       <div className="flex items-center justify-center h-screen">
-        <div className="border-gray-400 border px-10 py-10 flex">
-          <div></div>
+        <div className="px-10 py-10 flex items-center gap-10 justify-between">
+          <div className="w-150 bg-[#bdded2]">
+            <img src={studyImage} alt="" />
+          </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="email">
