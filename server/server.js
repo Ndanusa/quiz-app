@@ -1,6 +1,7 @@
 import express from "express";
 import http from "http";
 import authRouter from "./routes/auth.routes.js";
+import quizRouter from "./routes/quiz.routes.js";
 import { initSocket } from "./socket/socket.js";
 import connectDB from "./DATABASE/mongodb.js";
 import { PORT } from "./config/env.js";
@@ -21,6 +22,8 @@ app.use(
 
 // Routes
 app.use("/api/v1/auth", authRouter);
+import quizRouter from "./routes/quiz.routes.js";
+app.use("/api/v1/quiz", quizRouter);
 
 // Web Socket
 await initSocket(server);
