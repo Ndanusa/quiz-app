@@ -3,56 +3,81 @@ import { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import { BACKEND_URI } from "./config/config.js";
+
+interface User {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  id: string;
+  password?: string;
+}
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (!token) {
-      return setLoading(false);
+      setLoading(false);
+      return;
     }
-    fetch(`${BACKEND_URI}/api/v1/auth/protected`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
+
+    const rawUser = localStorage.getItem("user");
+    if (rawUser) {
+      try {
+        setUser(JSON.parse(rawUser));
+      } catch (err) {
+        console.error("Unable to parse stored user", err);
+      }
+    }
+
+    const checkAuth = async () => {
+      try {
+        const res = await fetch(`${BACKEND_URI}/api/v1/auth/protected`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!res.ok) throw new Error("Unauthorized");
-        return res.json();
-      })
-      .then(() => {
         setIsAuth(true);
-      })
-      .catch(() => {
+      } catch (error) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        setUser(null);
         setIsAuth(false);
-      })
-      .finally(() => setLoading(false));
-  }, [token]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
+      <div className="flex items-center justify-center h-screen bg-slate-100 text-slate-700">
+        <div className="px-4 py-3 rounded-lg border border-slate-200 bg-white shadow">Loading...</div>
       </div>
     );
   }
+
   return (
-    <>
-      <Routes>
-        <Route
-          path="/login"
-          element={isAuth ? <Navigate to={"/home"} /> : <Login />}
-        />
-        <Route
-          path="/home"
-          element={
-            isAuth ? <Home validUser={user} /> : <Navigate to={"/login"} />
-          }
-        />
-      </Routes>
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={isAuth ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />}
+      />
+      <Route
+        path="/login"
+        element={isAuth ? <Navigate to="/home" replace /> : <Login />}
+      />
+      <Route
+        path="/home"
+        element={isAuth && user ? <Home validUser={user} /> : <Navigate to="/login" replace />}
+      />
+      <Route path="*" element={<Navigate to={isAuth ? "/home" : "/login"} replace />} />
+    </Routes>
   );
 }
 
