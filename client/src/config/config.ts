@@ -13,7 +13,7 @@ export function getGreeting(): string {
 
   let greeting: string;
 
-  if (hour >= 5 && hour < 12) {
+  if (hour >= 0 && hour < 12) {
     greeting = "Good morning";
   } else if (hour >= 12 && hour < 17) {
     greeting = "Good afternoon";

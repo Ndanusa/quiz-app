@@ -225,11 +225,11 @@ function Login() {
                 <div className="font-bold text-sm text-zinc-500">OR</div>
                 <div className="border w-2/5 border-zinc-300 rounded-full"></div>
               </div>
-              <div className="flex items-center justify-center h-20 gap-3">
-                <div className="border-zinc-200 border-2 rounded-lg sqc-md p-2 w-1/2 flex items-center justify-center bg-zinc-100">
+              <div className="flex items-center justify-center h-20 gap-3 *:border-zinc-200 *:border-2 *:rounded-lg *:p-2 *:w-1/2 *:flex *:items-center *:justify-center *:bg-zinc-100 *:cursor-pointer">
+                <div className="sqc-lg">
                   <img src={xImage} alt="" className="w-7" />
                 </div>
-                <div className="border-zinc-200 border-2 rounded-lg sqc-md p-2 w-1/2 flex items-center justify-center bg-zinc-100">
+                <div className="sqc-lg">
                   <img src={googleImg} alt="" className="w-7" />
                 </div>
               </div>
@@ -241,7 +241,7 @@ function Login() {
           </div>
         </div>
         <div
-          className=" flex-1 h-full relative"
+          className=" hidden lg:flex flex-1 h-full relative"
           style={{
             backgroundImage: `url(${studyImg})`,
             backgroundSize: "cover",

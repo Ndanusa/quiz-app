@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@responsive;
 
 body {
   font-family: "Dm sans";
