@@ -4,6 +4,12 @@ body {
   font-family: "Dm sans";
 }
 
+.glass-card {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 16px;
+}
+
 ::-ms-reveal {
   display: none;
 }
@@ -52,6 +58,10 @@ body {
 }
 
 @supports (corner-shape: superellipse(2)) {
+  .glass-card {
+    corner-shape: superellipse(2);
+    border-radius: 50px;
+  }
   .sqc-sm {
     corner-shape: superellipse(2);
     border-radius: 10px;

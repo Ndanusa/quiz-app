@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URI, getGreeting } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
-import studyImage from "../assets/wise.svg";
+import studyImg from "../assets/study.jpg";
 import logoImg from "../assets/logo text.svg";
 import googleImg from "../assets/google.svg";
 import xImage from "../assets/x.svg";
@@ -133,35 +133,34 @@ function Login() {
   return (
     <>
       <div className={"flex items-center h-screen"}>
-        <div className="flex-1 bg-[#f1f1f1] h-full p-5">
+        <div className="flex-1 h-full p-5">
           <div>
             <img src={logoImg} alt="" className="w-25" />
           </div>
           <div className="flex flex-col gap-4 items-center justify-center h-full ">
-            <div className="w-11/20 pb-20">
-              <div className="flex items-center justify-between">
-                <div className="">
-                  <h1 className="font-semibold text-xl text-zinc-700">
-                    {getGreeting()}
+            <div className="w-11/20 pb-30">
+              <div>
+                <div className="text-center *:py-1 py-10">
+                  <h1 className="font-semibold text-3xl text-zinc-700">
+                    {getGreeting()}!
                   </h1>
-                  <p className="text-gray-400 text-sm">
-                    Please enter your details
+                  <p className="text-gray-600 text-sm">
+                    To login your account please enter your email and password
                   </p>
                 </div>
               </div>
               <div className="flex flex-col gap-2 items-center">
                 <div className="w-full">
-                  <p className={"text-sm"}>Email</p>
                   <div className="flex items-center relative">
                     <input
                       onChange={emailInput}
                       name="email"
                       ref={emailRef}
                       placeholder="Enter your email"
-                      className={`placeholder:text-sm border-2 border-zinc-200 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-white py-2 px-3 sqc-lg rounded-md w-full mt-2 ${
+                      className={`placeholder:text-sm h-12 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 px-3 sqc-lg rounded-md w-full mt-2 ${
                         fieldError.email.error
                           ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
-                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#acacac]"
+                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181]"
                       }`}
                       type="email"
                     />
@@ -173,22 +172,21 @@ function Login() {
                   )}
                 </div>
                 <div className="w-full">
-                  <p className="text-sm">Password</p>
                   <div className="flex items-center relative">
                     <input
                       onChange={passwordInput}
                       name="password"
                       placeholder="Enter your password"
-                      className={`placeholder:text-sm ring-2 ring-inset ring-zinc-200 text-sm px-3 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-white py-2 sqc-lg rounded-md mt-2 w-full ${
+                      className={`placeholder:text-sm h-12 text-sm px-3 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 sqc-lg rounded-md mt-2 w-full ${
                         fieldError.password.error
                           ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
-                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#acacac]"
+                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181]"
                       }`}
                       type={passwordState}
                       autoComplete="on"
                     />
                     <HugeiconsIcon
-                      className="absolute right-3 bottom-2 cursor-pointer"
+                      className="absolute right-3 bottom-3 cursor-pointer"
                       onClick={() =>
                         passwordState === "password"
                           ? setPasswordState("text")
@@ -210,14 +208,16 @@ function Login() {
                 </div>
               </div>
 
-              <Link className="text-sm text-gray-500 block mt-2" to={`/reset`}>
+              <Link
+                className="text-sm text-[#47c276] font-medium block mt-2"
+                to={`/reset`}>
                 Forgot password?
               </Link>
 
               <button
                 onClick={handleLogin}
                 disabled={loading}
-                className="bg-[#77fecf] text-zinc-600 font-medium py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 border-2 border-zinc-300">
+                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 border-2 border-zinc-300">
                 Login
               </button>
               <div className="flex items-center justify-between py-5">
@@ -233,14 +233,32 @@ function Login() {
                   <img src={googleImg} alt="" className="w-7" />
                 </div>
               </div>
+              <div className="text-center">
+                <h1 className="text-zinc-700">Feel free to contact us</h1>
+                <p className="text-[#47c276]">support@quix.edu</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className=" bg-[#31c59b] p-10 flex justify-between relative flex-1 px-10 h-full flex-col">
-          <div>
-            <h1 className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-[#e9fef3] to-[#90ffc6]"></h1>
+        <div
+          className=" flex-1 h-full relative"
+          style={{
+            backgroundImage: `url(${studyImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}>
+          <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#5ed38521]"></div>
+          <div className="flex items-center justify-center h-full">
+            <div className="container font-normal flex-col bg-[#052c1a1d] w-3/5 glass-card h-7/20 flex justify-center text-white *:py-2 px-7">
+              <h1 className="text-2xl">Study smarter, Finish faster</h1>
+              <p className="text-sm w-5/6">
+                Explore precision learning tools designed to help you retain
+                more in less time. Your most productive study session starts
+                right here
+              </p>
+            </div>
           </div>
-          <img src={studyImage} alt="" className="w-200 self-start" />
         </div>
       </div>
     </>
