@@ -4,6 +4,7 @@ import { BACKEND_URI } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
 import studyImage from "../assets/wise.svg";
 import logoImg from "../assets/logo text.svg";
+import googleImg from "../assets/google.svg";
 import {
   Mail01Icon,
   LockPasswordIcon,
@@ -86,13 +87,13 @@ function Login() {
     if (!loginDetail.email)
       return setFieldError({
         ...fieldError,
-        email: { error: true, message: "Field Cannot Be Empty" },
+        email: { error: true, message: "Enter Email" },
       });
 
     if (!loginDetail.password) {
       return setFieldError({
         ...fieldError,
-        password: { error: true, message: "Field Cannot Be Empty" },
+        password: { error: true, message: "Enter Password" },
       });
     }
     if (fieldError.email.error || fieldError.password.error) return;
@@ -132,17 +133,12 @@ function Login() {
   return (
     <>
       <div className={"flex items-center h-screen"}>
-        <div
-          className="flex-1 bg-[#f2f2f2] h-full p-20"
-          style={{
-            background: "#ffffff",
-            backgroundImage:
-              "radial-gradient(circle at 2px 2px, rgba(0, 0, 0, .25) 1px, transparent 0)",
-            backgroundSize: "20px 20px",
-          }}>
+        <div className="flex-1 bg-[#f1f1f1] h-full p-20">
           <div className="flex flex-col gap-4 items-center justify-center h-full ">
-            <div className="w-1/2">
-              <img src={logoImg} alt="" className="w-45" />
+            <div className="w-11/20  pb-20">
+              <div className="py-20">
+                <img src={logoImg} alt="" className="w-45" />
+              </div>
               <div className="flex items-center justify-between">
                 <div className="my-2">
                   <h1 className="font-medium text-xl text-zinc-700">
@@ -154,7 +150,7 @@ function Login() {
                 </div>
               </div>
               <div className="flex flex-col gap-2 items-center">
-                <label htmlFor="email" className="w-full">
+                <div className="w-full">
                   <p className={"text-sm"}>Email</p>
                   <div className="flex items-center relative">
                     <input
@@ -175,8 +171,8 @@ function Login() {
                       {fieldError.email.message}
                     </div>
                   )}
-                </label>
-                <label htmlFor="password" className="w-full">
+                </div>
+                <div className="w-full">
                   <p className="text-sm">Password</p>
                   <div className="flex items-center relative">
                     <input
@@ -211,7 +207,7 @@ function Login() {
                       {fieldError.password.message}
                     </div>
                   )}
-                </label>
+                </div>
               </div>
 
               <Link className="text-sm text-gray-500 block mt-2" to={`/reset`}>
@@ -224,12 +220,17 @@ function Login() {
                 className="bg-[#77fecf] text-zinc-600 font-medium py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 border-2 border-zinc-300">
                 Login
               </button>
-              <div className="flex items-center justify-center h-20 gap-3 my-5 ">
-                <div className="border-2 p-2 w-1/2 flex items-center justify-center bg-zinc-300">
+              <div className="flex items-center justify-between py-5">
+                <div className="border w-2/5 border-zinc-300 rounded-full"></div>
+                <div className="font-bold text-sm text-zinc-500">OR</div>
+                <div className="border w-2/5 border-zinc-300 rounded-full"></div>
+              </div>
+              <div className="flex items-center justify-center h-20 gap-3">
+                <div className="border-zinc-200 border-2 rounded-lg sqc-md p-2 w-1/2 flex items-center justify-center bg-zinc-100">
                   <HugeiconsIcon icon={NewTwitterIcon} size={30} />
                 </div>
-                <div className="border-2 p-2 w-1/2 flex items-center justify-center bg-zinc-300">
-                  <HugeiconsIcon icon={GoogleIcon} size={30} />
+                <div className="border-zinc-200 border-2 rounded-lg sqc-md p-2 w-1/2 flex items-center justify-center bg-zinc-100">
+                  <img src={googleImg} alt="" className="w-7" />
                 </div>
               </div>
             </div>
