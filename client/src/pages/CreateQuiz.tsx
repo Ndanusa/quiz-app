@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BACKEND_URI } from "../config/config.js";
+import { BACKEND_URI } from "../config/config.ts";
 import { useNavigate } from "react-router-dom";
 
 function CreateQuiz() {
@@ -13,6 +13,8 @@ function CreateQuiz() {
       options: [
         { optionId: "a", text: "" },
         { optionId: "b", text: "" },
+        { optionId: "c", text: "" },
+        { optionId: "d", text: "" },
       ],
       correctAnswer: "a",
     },
@@ -50,6 +52,8 @@ function CreateQuiz() {
         options: [
           { optionId: "a", text: "" },
           { optionId: "b", text: "" },
+          { optionId: "c", text: "" },
+          { optionId: "d", text: "" },
         ],
         correctAnswer: "a",
       },

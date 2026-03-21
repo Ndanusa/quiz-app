@@ -7,7 +7,7 @@ import {
   Settings01Icon,
   LockPasswordIcon,
 } from "@hugeicons/core-free-icons";
-import { BACKEND_URI } from "../config/config.js";
+import { BACKEND_URI } from "../config/config.ts";
 
 function Dashboard() {
   const [quizzes, setQuizzes] = useState([]);

@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import CreateQuiz from "./pages/CreateQuiz";
 import TakeQuiz from "./pages/TakeQuiz";
 import Settings from "./pages/Settings";
-import { BACKEND_URI } from "./config/config.js";
+import { BACKEND_URI } from "./config/config.ts";
 
 interface User {
   firstName: string;
