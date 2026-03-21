@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
-import { BACKEND_URI } from "../config/config.ts";
+import { BACKEND_URI, getGreeting } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
 import studyImage from "../assets/wise.svg";
 import logoImg from "../assets/logo text.svg";
 import googleImg from "../assets/google.svg";
+import xImage from "../assets/x.svg";
 import {
   Mail01Icon,
   LockPasswordIcon,
@@ -32,7 +33,6 @@ function Login() {
     /^[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
 
   // Email and password input field
-
   const emailInput = () => {
     const email = emailRef.current.value;
     setLoginDetail({ ...loginDetail, email });
@@ -133,16 +133,16 @@ function Login() {
   return (
     <>
       <div className={"flex items-center h-screen"}>
-        <div className="flex-1 bg-[#f1f1f1] h-full p-20">
+        <div className="flex-1 bg-[#f1f1f1] h-full p-5">
+          <div>
+            <img src={logoImg} alt="" className="w-25" />
+          </div>
           <div className="flex flex-col gap-4 items-center justify-center h-full ">
-            <div className="w-11/20  pb-20">
-              <div className="py-20">
-                <img src={logoImg} alt="" className="w-45" />
-              </div>
+            <div className="w-11/20 pb-20">
               <div className="flex items-center justify-between">
-                <div className="my-2">
-                  <h1 className="font-medium text-xl text-zinc-700">
-                    Login to your account
+                <div className="">
+                  <h1 className="font-semibold text-xl text-zinc-700">
+                    {getGreeting()}
                   </h1>
                   <p className="text-gray-400 text-sm">
                     Please enter your details
@@ -161,7 +161,7 @@ function Login() {
                       className={`placeholder:text-sm border-2 border-zinc-200 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-white py-2 px-3 sqc-lg rounded-md w-full mt-2 ${
                         fieldError.email.error
                           ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
-                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#78ac96]"
+                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#acacac]"
                       }`}
                       type="email"
                     />
@@ -227,7 +227,7 @@ function Login() {
               </div>
               <div className="flex items-center justify-center h-20 gap-3">
                 <div className="border-zinc-200 border-2 rounded-lg sqc-md p-2 w-1/2 flex items-center justify-center bg-zinc-100">
-                  <HugeiconsIcon icon={NewTwitterIcon} size={30} />
+                  <img src={xImage} alt="" className="w-7" />
                 </div>
                 <div className="border-zinc-200 border-2 rounded-lg sqc-md p-2 w-1/2 flex items-center justify-center bg-zinc-100">
                   <img src={googleImg} alt="" className="w-7" />

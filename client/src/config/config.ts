@@ -7,3 +7,21 @@ if (!import.meta.env.VITE_BACKEND_URI) {
 }
 
 export const BACKEND_URI = backendUri;
+
+export function getGreeting(): string {
+  const hour = new Date().getHours();
+
+  let greeting: string;
+
+  if (hour >= 5 && hour < 12) {
+    greeting = "Good morning";
+  } else if (hour >= 12 && hour < 17) {
+    greeting = "Good afternoon";
+  } else if (hour >= 17 && hour < 24) {
+    greeting = "Good evening";
+  } else {
+    greeting = "Good night";
+  }
+
+  return greeting;
+}
