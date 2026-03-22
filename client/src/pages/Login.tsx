@@ -15,10 +15,13 @@ import {
   TwitterIcon,
   X,
   NewTwitterIcon,
+  Tick02Icon,
 } from "@hugeicons/core-free-icons";
 import { Link } from "react-router-dom";
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
+  const [isTypingEmail, setIsTypingEmail] = useState(false);
+  const [isTypingPassword, setIsTypingPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordState, setPasswordState] = useState("password");
   const [loginDetail, setLoginDetail] = useState({
@@ -34,6 +37,7 @@ function Login() {
 
   // Email and password input field
   const emailInput = () => {
+    setIsTypingEmail(true);
     const email = emailRef.current.value;
     setLoginDetail({ ...loginDetail, email });
 
@@ -56,6 +60,7 @@ function Login() {
   };
 
   const passwordInput = (e) => {
+    setIsTypingPassword(true);
     setLoginDetail({ ...loginDetail, password: e.target.value });
     if (!e.target.value)
       return setFieldError({
@@ -78,19 +83,24 @@ function Login() {
   };
 
   async function handleLogin() {
-    if (!loginDetail.email && !loginDetail.password)
-      return setFieldError({
-        email: { message: "Field Cannot Be Empty", error: true },
-        password: { message: "Field Cannot Be Empty", error: true },
-      });
+    if (!loginDetail.email && !loginDetail.password) {
+      setIsTypingEmail(true);
+      setIsTypingPassword(true);
 
-    if (!loginDetail.email)
+      return setFieldError({
+        email: { message: "", error: true },
+        password: { message: "", error: true },
+      });
+    }
+    if (!loginDetail.email) {
+      setIsTypingEmail(true);
       return setFieldError({
         ...fieldError,
         email: { error: true, message: "Enter Email" },
       });
-
+    }
     if (!loginDetail.password) {
+      setIsTypingPassword(true);
       return setFieldError({
         ...fieldError,
         password: { error: true, message: "Enter Password" },
@@ -134,11 +144,16 @@ function Login() {
     <>
       <div className={"flex items-center h-screen"}>
         <div className="flex-1 h-full p-5">
-          <div>
+          <div className="flex items-center justify-between">
             <img src={logoImg} alt="" className="w-25" />
+            <Link
+              to={`/signup`}
+              className="h-10 bg-[#1b2820] text-[#f2fff7] px-7 sqc-lg flex items-center justify-center">
+              Signup
+            </Link>
           </div>
           <div className="flex flex-col gap-4 items-center justify-center h-full ">
-            <div className="w-11/20 pb-30">
+            <div className="lg:w-11/20 pb-30">
               <div>
                 <div className="text-center *:py-1 py-10">
                   <h1 className="font-semibold text-3xl text-zinc-700">
@@ -153,19 +168,28 @@ function Login() {
                 <div className="w-full">
                   <div className="flex items-center relative">
                     <input
+                      onKeyUp={(e) => {
+                        if (e.key === "Enter") {
+                          handleLogin();
+                        }
+                      }}
                       onChange={emailInput}
                       name="email"
                       ref={emailRef}
                       placeholder="Enter your email"
-                      className={`placeholder:text-sm h-12 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 px-3 sqc-lg rounded-md w-full mt-2 ${
-                        fieldError.email.error
-                          ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
-                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181]"
-                      }`}
+                      className={`placeholder:text-sm h-12 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 px-3 sqc-lg rounded-md w-full mt-2 text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181] `}
                       type="email"
                     />
+                    {isTypingEmail && (
+                      <HugeiconsIcon
+                        icon={fieldError.email.error ? X : Tick02Icon}
+                        strokeWidth={3}
+                        size={20}
+                        className={`absolute right-3 bottom-3 $  text-white rounded-full p-1 ${!fieldError.email.error ? "bg-[#47c276]" : "bg-[#f70d0d]"}`}
+                      />
+                    )}
                   </div>
-                  {fieldError.email.error && (
+                  {fieldError.email.message && (
                     <div className="text-xs text-red-500 p-1">
                       {fieldError.email.message}
                     </div>
@@ -174,50 +198,60 @@ function Login() {
                 <div className="w-full">
                   <div className="flex items-center relative">
                     <input
+                      onKeyUp={(e) => {
+                        if (e.key === "Enter") {
+                          handleLogin();
+                        }
+                      }}
                       onChange={passwordInput}
                       name="password"
                       placeholder="Enter your password"
-                      className={`placeholder:text-sm h-12 text-sm px-3 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 sqc-lg rounded-md mt-2 w-full ${
-                        fieldError.password.error
-                          ? "text-red-600 focus:outline-0 border-2 border-red-600 placeholder:text-red-500"
-                          : "text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181]"
-                      }`}
+                      className={`placeholder:text-sm h-12 text-sm px-3 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 sqc-lg rounded-md mt-2 w-full text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181] `}
                       type={passwordState}
                       autoComplete="on"
                     />
-                    <HugeiconsIcon
-                      className="absolute right-3 bottom-3 cursor-pointer"
-                      onClick={() =>
-                        passwordState === "password"
-                          ? setPasswordState("text")
-                          : setPasswordState("password")
-                      }
-                      icon={
-                        passwordState === "password" ? ViewIcon : ViewOffIcon
-                      }
-                      size={19}
-                      strokeWidth={1.7}
-                    />
+
+                    {isTypingPassword && (
+                      <HugeiconsIcon
+                        icon={fieldError.password.error ? X : Tick02Icon}
+                        strokeWidth={3}
+                        size={20}
+                        className={`absolute right-3 bottom-3.5 text-white rounded-full p-1 ${!fieldError.password.error ? "bg-[#47c276]" : "bg-[#f70d0d]"}`}
+                      />
+                    )}
                   </div>
 
-                  {fieldError.password.error && (
+                  {fieldError.password.message && (
                     <div className="text-xs text-red-500 p-1">
                       {fieldError.password.message}
                     </div>
                   )}
                 </div>
               </div>
-
-              <Link
-                className="text-sm text-[#47c276] font-medium block mt-2"
-                to={`/reset`}>
-                Forgot password?
-              </Link>
+              <div className="pt-4 lg:flex justify-between items-center">
+                <div className="flex gap-2">
+                  <p className="text-sm">Show password</p>
+                  <input
+                    type="checkbox"
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+                      checked
+                        ? setPasswordState("text")
+                        : setPasswordState("password");
+                    }}
+                  />
+                </div>
+                <Link
+                  className="text-sm text-[#47c276] font-medium"
+                  to={`/reset`}>
+                  Forgot password?
+                </Link>
+              </div>
 
               <button
                 onClick={handleLogin}
                 disabled={loading}
-                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 border-2 border-zinc-300">
+                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 focus:border-2 focus:border-[#43f186]">
                 Login
               </button>
               <div className="flex items-center justify-between py-5">

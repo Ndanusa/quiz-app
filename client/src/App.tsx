@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
@@ -7,6 +8,8 @@ import CreateQuiz from "./pages/CreateQuiz";
 import TakeQuiz from "./pages/TakeQuiz";
 import Settings from "./pages/Settings";
 import { BACKEND_URI } from "./config/config.ts";
+import logoImg from "./assets/logo.svg";
+import SignUp from "./pages/Signup.tsx";
 
 interface User {
   firstName: string;
@@ -69,58 +72,97 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          isAuth ? (
-            <Navigate to="/home" replace />
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-      <Route
-        path="/login"
-        element={isAuth ? <Navigate to="/home" replace /> : <Login />}
-      />
-      <Route
-        path="/home"
-        element={
-          isAuth && user ? <Dashboard /> : <Navigate to="/login" replace />
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={isAuth ? <Dashboard /> : <Navigate to="/login" replace />}
-      />
-      <Route
-        path="/create"
-        element={isAuth ? <CreateQuiz /> : <Navigate to="/login" replace />}
-      />
-      <Route
-        path="/take/:id"
-        element={isAuth ? <TakeQuiz /> : <Navigate to="/login" replace />}
-      />
-      <Route
-        path="/settings"
-        element={isAuth ? <Settings /> : <Navigate to="/login" replace />}
-      />
-      <Route
-        path="/play"
-        element={
-          isAuth && user ? (
-            <Home validUser={user} />
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-      <Route
-        path="*"
-        element={<Navigate to={isAuth ? "/home" : "/login"} replace />}
-      />
-    </Routes>
+    <>
+      {isAuth && (
+        <nav className="flex items-center justify-between px-10 py-5 bg-[#e8fff2]">
+          <div>
+            <img src={logoImg} alt="" className="w-12" />
+          </div>
+          <ul className="flex items-center justify-between gap-10">
+            <li>
+              <Link to={"/home"}>Home</Link>
+            </li>
+            <li>
+              <Link to={"/dashboard"}>Dashboard</Link>
+            </li>
+            <li>
+              <Link to={"/settings"}>Settings</Link>
+            </li>
+            <li>
+              <Link to={"/take"}>Quizes</Link>
+            </li>
+            <li>
+              <Link to={"/create"}>Create</Link>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.href = "/login";
+                }}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </nav>
+      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isAuth ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={isAuth ? <Navigate to="/home" replace /> : <Login />}
+        />
+        <Route
+          path="/signup"
+          element={isAuth ? <Navigate to="/home" /> : <SignUp />}
+        />
+        <Route
+          path="/home"
+          element={
+            isAuth && user ? <Dashboard /> : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={isAuth ? <Dashboard /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/create"
+          element={isAuth ? <CreateQuiz /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/take/:id"
+          element={isAuth ? <TakeQuiz /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/settings"
+          element={isAuth ? <Settings /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/play"
+          element={
+            isAuth && user ? (
+              <Home validUser={user} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="*"
+          element={<Navigate to={isAuth ? "/home" : "/login"} replace />}
+        />
+      </Routes>
+    </>
   );
 }
 
