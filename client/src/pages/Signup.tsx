@@ -46,48 +46,6 @@ function SignUp() {
   const [loading, setLoading] = useState(false);
   const [passwordState, setPasswordState] = useState("password");
   async function handleSignup() {
-    if (
-      !signupDetail.firstName &&
-      !signupDetail.email &&
-      !signupDetail.password &&
-      !signupDetail.username &&
-      !signupDetail.lastName
-    ) {
-      return setFieldError({
-        email: { error: true, message: "Field cannot be empty" },
-        password: { error: true, message: "Field cannot be empty" },
-        firstName: { error: true, message: "Field cannot be empty" },
-        lastName: { error: true, message: "Field cannot be empty" },
-        username: { error: true, message: "Field cannot be empty" },
-      });
-    }
-    if (!signupDetail.firstName)
-      return setFieldError({
-        ...fieldError,
-        firstName: { error: true, message: "Field cannot be empty" },
-      });
-
-    if (!signupDetail.lastName)
-      return setFieldError({
-        ...fieldError,
-        lastName: { error: true, message: "Field cannot be empty" },
-      });
-    if (!signupDetail.username)
-      return setFieldError({
-        ...fieldError,
-        username: { error: true, message: "Field cannot be empty" },
-      });
-    if (!signupDetail.email)
-      return setFieldError({
-        ...fieldError,
-        email: { error: true, message: "Field cannot be empty" },
-      });
-    if (!signupDetail.password)
-      return setFieldError({
-        ...fieldError,
-        password: { error: true, message: "Field cannot be empty" },
-      });
-
     const res = await axios.post(
       `${BACKEND_URI}/api/v1/auth/sign-up`,
       signupDetail,
@@ -122,11 +80,6 @@ function SignUp() {
             </div>
             <div className="flex flex-col gap-2 items-center">
               <div className="w-full">
-                {fieldError.firstName.message && (
-                  <div className="text-xs text-red-500 p-1">
-                    {fieldError.firstName.message}
-                  </div>
-                )}
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
@@ -135,6 +88,10 @@ function SignUp() {
                       }
                     }}
                     onChange={(e) => {
+                      setFieldError({
+                        ...fieldError,
+                        firstName: { error: false, message: "" },
+                      });
                       setSignupDetail({
                         ...signupDetail,
                         firstName: e.target.value,
@@ -155,13 +112,13 @@ function SignUp() {
                     />
                   )}
                 </div>
-              </div>
-              <div className="w-full">
-                {fieldError.lastName.message && (
+                {fieldError.firstName.message && (
                   <div className="text-xs text-red-500 p-1">
-                    {fieldError.lastName.message}
+                    {fieldError.firstName.message}
                   </div>
                 )}
+              </div>
+              <div className="w-full">
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
@@ -169,7 +126,16 @@ function SignUp() {
                         handleSignup();
                       }
                     }}
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      setFieldError({
+                        ...fieldError,
+                        lastName: { error: false, message: "" },
+                      });
+                      setSignupDetail({
+                        ...signupDetail,
+                        lastName: e.target.value,
+                      });
+                    }}
                     name="lastName"
                     ref={emailRef}
                     placeholder="Last Name"
@@ -185,13 +151,13 @@ function SignUp() {
                     />
                   )}
                 </div>
-              </div>
-              <div className="w-full">
                 {fieldError.lastName.message && (
                   <div className="text-xs text-red-500 p-1">
                     {fieldError.lastName.message}
                   </div>
                 )}
+              </div>
+              <div className="w-full">
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
@@ -199,7 +165,16 @@ function SignUp() {
                         handleSignup();
                       }
                     }}
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      setFieldError({
+                        ...fieldError,
+                        username: { error: false, message: "" },
+                      });
+                      setSignupDetail({
+                        ...signupDetail,
+                        username: e.target.value,
+                      });
+                    }}
                     name="username"
                     ref={emailRef}
                     placeholder="Username"
@@ -215,13 +190,13 @@ function SignUp() {
                     />
                   )}
                 </div>
-              </div>
-              <div className="w-full">
-                {fieldError.email.message && (
+                {fieldError.lastName.message && (
                   <div className="text-xs text-red-500 p-1">
-                    {fieldError.email.message}
+                    {fieldError.lastName.message}
                   </div>
                 )}
+              </div>
+              <div className="w-full">
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
@@ -245,13 +220,13 @@ function SignUp() {
                     />
                   )}
                 </div>
-              </div>
-              <div className="w-full">
-                {fieldError.password.message && (
+                {fieldError.email.message && (
                   <div className="text-xs text-red-500 p-1">
-                    {fieldError.password.message}
+                    {fieldError.email.message}
                   </div>
                 )}
+              </div>
+              <div className="w-full">
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
@@ -276,6 +251,11 @@ function SignUp() {
                     />
                   )}
                 </div>
+                {fieldError.password.message && (
+                  <div className="text-xs text-red-500 p-1">
+                    {fieldError.password.message}
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex pt-4 gap-2">
