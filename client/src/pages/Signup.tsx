@@ -22,6 +22,7 @@ import { useRef, useState } from "react";
 
 function SignUp() {
   const emailRef = useRef(null);
+  const [success, setSuccess] = useState(false);
   const [isTyping, setIsTyping] = useState({
     firstName: false,
     lastName: false,
@@ -29,7 +30,7 @@ function SignUp() {
     email: false,
     password: false,
   });
-  const [signupDetail, setSignupDetail] = useState({
+  const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     username: "",
@@ -45,21 +46,74 @@ function SignUp() {
   });
   const [loading, setLoading] = useState(false);
   const [passwordState, setPasswordState] = useState("password");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setIsTyping((prev) => ({ ...prev, [name]: true }));
+
+    setForm((prev) => ({ ...prev, [name]: value }));
+
+    setFieldError((prev) => ({
+      ...prev,
+      [name]: {
+        error: !value,
+        message: !name ? `${name} is required` : "",
+      },
+    }));
+  };
+
   async function handleSignup() {
-    const res = await axios.post(
-      `${BACKEND_URI}/api/v1/auth/sign-up`,
-      signupDetail,
-    );
+    let errors = {};
+
+    Object.keys(form).forEach((key) => {
+      if (!form[key].trim()) {
+        errors[key] = {
+          error: true,
+          message: `${key} is required`,
+        };
+      }
+    });
+
+    setFieldError((prev) => ({
+      ...prev,
+      ...errors,
+    }));
+
+    setIsTyping({
+      firstName: true,
+      lastName: true,
+      username: true,
+      email: true,
+      password: true,
+    });
+
+    if (Object.keys(errors).length > 0) return;
     try {
-      console.log(res);
+      const res = await axios.post(`${BACKEND_URI}/api/v1/auth/sign-up`, form);
+      !res.data.error && setSuccess(true);
     } catch (error) {
-      console.log(error.response);
+      console.log(error.response.data);
+      if (error.response.data.type === "email") {
+        setIsTyping((prev) => ({ ...prev, email: true }));
+        return setFieldError((prev) => ({
+          ...prev,
+          email: { error: true, message: error.response.data.message },
+        }));
+      }
+      if (error.response.data.type === "username") {
+        setIsTyping((prev) => ({ ...prev, username: true }));
+        return setFieldError((prev) => ({
+          ...prev,
+          username: { error: true, message: error.response.data.message },
+        }));
+      }
     }
   }
 
   return (
     <div className={"flex items-center h-screen"}>
-      <div className="flex-1 h-full relative p-5 overflow-scroll auth">
+      <div className="flex-1 h-full relative p-5 auth">
         <div className="flex items-center justify-between sticky top-0">
           <img src={logoImg} alt="" className="w-25" />
           <Link
@@ -83,20 +137,9 @@ function SignUp() {
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
-                      if (e.key === "Enter") {
-                        handleSignup();
-                      }
+                      if (e.key === "Enter") handleSignup();
                     }}
-                    onChange={(e) => {
-                      setFieldError({
-                        ...fieldError,
-                        firstName: { error: false, message: "" },
-                      });
-                      setSignupDetail({
-                        ...signupDetail,
-                        firstName: e.target.value,
-                      });
-                    }}
+                    onChange={handleChange}
                     name="firstName"
                     ref={emailRef}
                     placeholder="First Name"
@@ -122,20 +165,9 @@ function SignUp() {
                 <div className="flex items-center relative">
                   <input
                     onKeyUp={(e) => {
-                      if (e.key === "Enter") {
-                        handleSignup();
-                      }
+                      if (e.key === "Enter") handleSignup();
                     }}
-                    onChange={(e) => {
-                      setFieldError({
-                        ...fieldError,
-                        lastName: { error: false, message: "" },
-                      });
-                      setSignupDetail({
-                        ...signupDetail,
-                        lastName: e.target.value,
-                      });
-                    }}
+                    onChange={handleChange}
                     name="lastName"
                     ref={emailRef}
                     placeholder="Last Name"
@@ -165,16 +197,7 @@ function SignUp() {
                         handleSignup();
                       }
                     }}
-                    onChange={(e) => {
-                      setFieldError({
-                        ...fieldError,
-                        username: { error: false, message: "" },
-                      });
-                      setSignupDetail({
-                        ...signupDetail,
-                        username: e.target.value,
-                      });
-                    }}
+                    onChange={handleChange}
                     name="username"
                     ref={emailRef}
                     placeholder="Username"
@@ -190,9 +213,9 @@ function SignUp() {
                     />
                   )}
                 </div>
-                {fieldError.lastName.message && (
+                {fieldError.username.message && (
                   <div className="text-xs text-red-500 p-1">
-                    {fieldError.lastName.message}
+                    {fieldError.username.message}
                   </div>
                 )}
               </div>
@@ -204,7 +227,7 @@ function SignUp() {
                         handleSignup();
                       }
                     }}
-                    onChange={() => {}}
+                    onChange={handleChange}
                     name="email"
                     ref={emailRef}
                     placeholder="Email"
@@ -234,7 +257,7 @@ function SignUp() {
                         handleSignup();
                       }
                     }}
-                    onChange={() => {}}
+                    onChange={handleChange}
                     name="password"
                     placeholder="Password"
                     className={`placeholder:text-sm h-10 text-sm px-3 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 sqc-lg rounded-md mt-2 w-full text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181] `}
@@ -247,7 +270,7 @@ function SignUp() {
                       icon={fieldError.password.error ? X : Tick02Icon}
                       strokeWidth={3}
                       size={20}
-                      className={`absolute right-3 bottom-3.5 text-white rounded-full p-1 ${!fieldError.password.error ? "bg-[#47c276]" : "bg-[#f70d0d]"}`}
+                      className={`absolute right-3 bottom-3 text-white rounded-full p-1 ${!fieldError.password.error ? "bg-[#47c276]" : "bg-[#f70d0d]"}`}
                     />
                   )}
                 </div>
@@ -270,7 +293,16 @@ function SignUp() {
                 }}
               />
             </div>
-
+            {success && (
+              <p className="">
+                Account created succesfully, please{" "}
+                <Link to={"login"} className="text-[#1cd283] font-bold">
+                  {" "}
+                  login{" "}
+                </Link>{" "}
+                to continue.
+              </p>
+            )}
             <button
               onClick={handleSignup}
               disabled={loading}
@@ -316,6 +348,7 @@ function SignUp() {
           </div>
         </div>
       </div>
+      ;
     </div>
   );
 }

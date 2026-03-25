@@ -11,18 +11,9 @@ import { BACKEND_URI } from "./config/config.ts";
 import logoImg from "./assets/logo.svg";
 import SignUp from "./pages/Signup.tsx";
 
-interface User {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  id: string;
-  password?: string;
-}
-
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -74,7 +65,7 @@ function App() {
   return (
     <>
       {isAuth && (
-        <nav className="flex items-center justify-between px-10 py-5 bg-[#e8fff2]">
+        <nav className="flex items-center justify-between px-10 py-3 bg-[#e8fff2]">
           <div>
             <img src={logoImg} alt="" className="w-12" />
           </div>

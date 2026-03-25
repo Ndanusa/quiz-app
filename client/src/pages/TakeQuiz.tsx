@@ -5,7 +5,7 @@ import { BACKEND_URI } from "../config/config.js";
 function TakeQuiz() {
   const params = useParams();
 
-  return <div></div>;
+  return <div>{params.id}</div>;
 }
 
 export default TakeQuiz;

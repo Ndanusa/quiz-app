@@ -143,8 +143,8 @@ function Login() {
   return (
     <>
       <div className={"flex items-center h-screen"}>
-        <div className="flex-1 h-full p-5">
-          <div className="flex items-center justify-between">
+        <div className="flex-1 h-full p-5 auth">
+          <div className="flex items-center justify-between sticky top-0">
             <img src={logoImg} alt="" className="w-25" />
             <Link
               to={`/signup`}

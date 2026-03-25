@@ -21,7 +21,7 @@ export const signUp = async (req, res, next) => {
     if (matchingUsername) {
       res.statusCode = 404;
       return res.json({
-        message: `"${username}" not avaliable`,
+        message: `"${username}" is taken`,
         type: "username",
         error: true,
       });
@@ -37,15 +37,8 @@ export const signUp = async (req, res, next) => {
       password: hashedPassword,
     });
     res.json({
-      message: "Account created succesfully, login to continue.",
+      message: "Account created succesfully, please login to continue.",
       error: false,
-      data: {
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        username: newUser.firstName,
-        email: newUser.email,
-        id: newUser._id,
-      },
     });
   } catch (error) {
     next(error);

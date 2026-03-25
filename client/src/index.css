@@ -58,6 +58,10 @@ body {
   border-bottom-left-radius: 15px;
 }
 
+.auth {
+  overflow-y: scroll;
+}
+
 .auth::-webkit-scrollbar {
   width: 0px;
   display: none;
