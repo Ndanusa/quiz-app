@@ -65,7 +65,7 @@ function App() {
   return (
     <>
       {isAuth && (
-        <nav className="flex items-center justify-between px-10 py-3 bg-[#e8fff2]">
+        <nav className="flex items-center justify-between px-10 py-3 bg-[#e8fff23d] border-b-2 border-zinc-100/50 glass sticky top-0">
           <div>
             <img src={logoImg} alt="" className="w-12" />
           </div>

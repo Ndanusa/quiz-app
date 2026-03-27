@@ -2,13 +2,17 @@
 @responsive;
 
 body {
-  font-family: "Dm sans";
+  font-family: "Dm sans", poppins;
 }
 
 .glass-card {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 16px;
+}
+.glass {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 ::-ms-reveal {
