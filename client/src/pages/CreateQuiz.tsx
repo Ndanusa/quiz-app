@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BACKEND_URI } from "../config/config.ts";
 import { useNavigate } from "react-router-dom";
-
+import CircularProgress from "../components/ProgressBar.tsx";
 function CreateQuiz() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -19,7 +19,6 @@ function CreateQuiz() {
       correctAnswer: "A",
     },
   ]);
-
   const addQuestion = () => {
     setQuestions((prev) => [
       ...prev,
@@ -58,10 +57,20 @@ function CreateQuiz() {
 
   return (
     <div>
+      <div className="py-10">
+        <CircularProgress
+          label=""
+          value={3}
+          color="#000"
+          stroke={20}
+          rounded={false}
+        />
+      </div>
       <div>
-        <h1>Create New Quiz</h1>
-        <div>
+        <h1 className="text-2xl text-center py-3 ">Create New Quiz</h1>
+        <div className="flex flex-col">
           <input
+            className="h-10 px-3 border-2 border-[#c8d0ce] rounded-md sqc-lg"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
             placeholder="Quiz title"
@@ -71,7 +80,6 @@ function CreateQuiz() {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Quiz description"></textarea>
         </div>
-
         <div>
           {questions.map((question, i) => {
             return (
@@ -89,7 +97,7 @@ function CreateQuiz() {
                   }}
                   value={question.question}
                 />
-                <div>
+                <div className="grid grid-cols-2">
                   {question.options.map((opt, oi) => {
                     return (
                       <div key={opt.optionId}>

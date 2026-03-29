@@ -2,7 +2,7 @@
 @responsive;
 
 body {
-  font-family: "Dm sans", poppins;
+  font-family: "Dm sans";
 }
 
 .glass-card {
@@ -38,14 +38,24 @@ body {
   border-radius: 50px;
 }
 
-.sqc-2xl-tr {
-  border-top-right-radius: 25px;
+.sqc-2xl-br {
+  border-top-right-radius: 20px;
+  corner-shape: superellipse(2);
 }
-.sqc-2xl-bl {
+.sqc-2xl-tr {
   border-bottom-left-radius: 25px;
 }
-.sqc-2xl-br {
-  border-bottom-right-radius: 25px;
+.sqc-3xl-tr {
+  border-bottom-right-radius: 40px;
+}
+.sqc-4xl-tr {
+  border-bottom-right-radius: 60px;
+}
+.sqc-5xl-tr {
+  border-bottom-right-radius: 80px;
+}
+.sqc-6xl-tr {
+  border-bottom-right-radius: 100px;
 }
 
 .sqc-tbr-lg {
