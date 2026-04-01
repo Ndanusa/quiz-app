@@ -2,7 +2,6 @@ import { Route, Routes, Navigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import CreateQuiz from "./pages/CreateQuiz";
 import TakeQuiz from "./pages/TakeQuiz";
@@ -77,20 +76,23 @@ function App() {
     <>
       <div className={`${isAuth ? "flex " : ""}`}>
         {isAuth && (
-          <nav className="left-0 sqc-4xl-tr flex flex-col sticky items-start px-7 py-10 bg-[#e8fff23d] border-r-2 border-zinc-100/50 glass h-screen">
+          <nav className="left-0 w-fit flex flex-col sticky gap-20 items-start px-7 pr-15 py-5 bg-[#f8f8f9] border-r border-zinc-400/30 glass h-screen">
+            <div className="w-full h-px bg-zinc-200 absolute left-0 top-90"></div>
+            <div className="w-full h-px bg-zinc-200 absolute left-0 top-22"></div>
+
             <div>
               <img src={logoImg} alt="" className="w-26" />
             </div>
-            <ul className="flex flex-col items-start justify-between gap-7">
+            <ul className="flex flex-col items-start justify-between gap-8">
               <li>
                 <Link to={`/dashboard`} className="flex items-center gap-3">
                   <HugeiconsIcon
                     icon={DashboardCircleIcon}
                     strokeWidth={1.6}
                     className="text-zinc-600"
-                    size={20}
+                    size={18}
                   />
-                  <p className=" text-zinc-600">Overview</p>
+                  <p className=" text-zinc-600 text-sm">Overview</p>
                 </Link>
               </li>
               <li>
@@ -99,9 +101,9 @@ function App() {
                     icon={NoteAddIcon}
                     strokeWidth={1.6}
                     className="text-zinc-600"
-                    size={20}
+                    size={18}
                   />
-                  <p className=" text-zinc-600">Create quiz</p>
+                  <p className=" text-zinc-600 text-sm">Create quiz</p>
                 </Link>
               </li>
 
@@ -111,9 +113,9 @@ function App() {
                     icon={SearchIcon}
                     strokeWidth={1.6}
                     className="text-zinc-600"
-                    size={20}
+                    size={18}
                   />
-                  <p className=" text-zinc-600">Search quiz</p>
+                  <p className=" text-zinc-600 text-sm">Search quiz</p>
                 </Link>
               </li>
               <li>
@@ -122,36 +124,40 @@ function App() {
                     icon={BookIcon}
                     strokeWidth={1.6}
                     className="text-zinc-600"
-                    size={20}
+                    size={18}
                   />
-                  <p className=" text-zinc-600">Quizzes</p>
+                  <p className=" text-zinc-600 text-sm">Quizzes</p>
                 </Link>
               </li>
+            </ul>
+            <ul className={`flex flex-col gap-8 justify-between`}>
               <li>
-                <Link to={`/settings`} className="flex items-center gap-3">
+                <Link to={`/quizzes`} className="flex items-center gap-3">
                   <HugeiconsIcon
                     icon={Settings04Icon}
                     strokeWidth={1.6}
                     className="text-zinc-600"
-                    size={20}
+                    size={18}
                   />
-                  <p className=" text-zinc-600">Settings</p>
+                  <p className=" text-zinc-600 text-sm">Settings</p>
                 </Link>
               </li>
-            </ul>
-            <div className={`flex items-center gap-2`}>
-              <HugeiconsIcon
-                className=" text-zinc-600"
-                icon={Logout}
-                strokeWidth={1.7}
-                size={20}
+              <li
+                className="flex items-center gap-3 cursor-pointer"
                 onClick={() => {
                   localStorage.clear();
-                  window.location.href = "/login";
+                  document.location.href = "/login";
                 }}
-              />
-              <p className="text-zinc-600 ">Logout</p>
-            </div>
+              >
+                <HugeiconsIcon
+                  icon={Logout}
+                  strokeWidth={1.6}
+                  className="text-zinc-600"
+                  size={18}
+                />
+                <p className=" text-zinc-600 text-sm">Logout</p>
+              </li>
+            </ul>
           </nav>
         )}
         <Routes>
@@ -159,7 +165,7 @@ function App() {
             path="/"
             element={
               isAuth ? (
-                <Navigate to="/home" replace />
+                <Navigate to="/dashboard" replace />
               ) : (
                 <Navigate to="/login" replace />
               )
@@ -167,17 +173,11 @@ function App() {
           />
           <Route
             path="/login"
-            element={isAuth ? <Navigate to="/home" replace /> : <Login />}
+            element={isAuth ? <Navigate to="/dashboard" replace /> : <Login />}
           />
           <Route
             path="/signup"
-            element={isAuth ? <Navigate to="/home" /> : <SignUp />}
-          />
-          <Route
-            path="/home"
-            element={
-              isAuth && user ? <Dashboard /> : <Navigate to="/login" replace />
-            }
+            element={isAuth ? <Navigate to="/dashboard" /> : <SignUp />}
           />
           <Route
             path="/dashboard"
@@ -199,7 +199,7 @@ function App() {
             path="/play"
             element={
               isAuth && user ? (
-                <Home validUser={user} />
+                <Dashboard validUser={user} />
               ) : (
                 <Navigate to="/login" replace />
               )
@@ -207,7 +207,7 @@ function App() {
           />
           <Route
             path="*"
-            element={<Navigate to={isAuth ? "/home" : "/login"} replace />}
+            element={<Navigate to={isAuth ? "/dashboard" : "/login"} replace />}
           />
         </Routes>
       </div>

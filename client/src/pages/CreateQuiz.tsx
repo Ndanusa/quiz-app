@@ -78,7 +78,8 @@ function CreateQuiz() {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Quiz description"></textarea>
+            placeholder="Quiz description"
+          ></textarea>
         </div>
         <div>
           {questions.map((question, i) => {
@@ -113,7 +114,8 @@ function CreateQuiz() {
                     value={question.correctAnswer}
                     onChange={(e) =>
                       updateQuestion(i, "correctAnswer", e.target.value)
-                    }>
+                    }
+                  >
                     {question.options.map((o) => {
                       return (
                         <option value={o.optionId} key={o.optionId}>
