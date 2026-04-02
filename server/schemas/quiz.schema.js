@@ -24,7 +24,7 @@ const quizSchema = new mongoose.Schema(
     questions: [
       {
         questionId: { type: String, required: true },
-        questionText: { type: String, required: true },
+        question: { type: String, required: true },
         points: { type: Number, required: true, default: 1 },
         options: [
           {

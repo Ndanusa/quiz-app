@@ -111,7 +111,7 @@ function App() {
     <div className={`${isAuth ? "flex" : ""}`}>
       {isAuth && (
         <div
-          className={`sticky flex gap-20  flex-col left-0 px-3 py-5 bg-gray-200 h-screen transition-all duration-200 ${isCollapsed ? "w-30 items-center" : "w-60 items-start"}`}
+          className={`sticky flex gap-20  flex-col left-0  py-5 bg-gray-200 h-screen transition-all duration-200 ${isCollapsed ? "w-25 px-1  items-center" : "w-60 px-6 items-start"}`}
         >
           <HugeiconsIcon
             icon={isCollapsed ? ArrowRight03Icon : ArrowLeft03Icon}
