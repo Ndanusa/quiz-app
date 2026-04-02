@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateQuiz from "./pages/CreateQuiz";
-import { NavLink } from "./components/SideNav.tsx";
-import { Group, Panel, Separator } from "react-resizable-panels";
 import TakeQuiz from "./pages/TakeQuiz";
-import SideNav from "./components/SideNav.tsx";
 import Settings from "./pages/Settings";
 import { BACKEND_URI } from "./config/config.ts";
 import logoImgText from "./assets/logo text.svg";
@@ -28,9 +25,12 @@ import {
   ArrowLeft03Icon,
   Note01Icon,
   Bookmark02Icon,
+  News01Icon,
+  Settings03Icon,
 } from "@hugeicons/core-free-icons";
 import Discover from "./pages/Discover.tsx";
 import Quizzes from "./pages/Quizzes.tsx";
+import News from "./pages/News.tsx";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -58,6 +58,16 @@ function App() {
       text: "Create",
       target: "/create",
       icon: NoteAddIcon,
+    },
+    {
+      text: "News",
+      target: "/news",
+      icon: News01Icon,
+    },
+    {
+      text: "Settings",
+      target: "/settings",
+      icon: Settings03Icon,
     },
   ];
   useEffect(() => {
@@ -111,7 +121,7 @@ function App() {
     <div className={`${isAuth ? "flex" : ""}`}>
       {isAuth && (
         <div
-          className={`sticky flex gap-20  flex-col left-0  py-5 bg-gray-200 h-screen transition-all duration-200 ${isCollapsed ? "w-25 px-1  items-center" : "w-60 px-6 items-start"}`}
+          className={`sticky flex gap-20 border-r-2 border-[#d9d9d9] flex-col left-0  py-5 bg-gray-200 h-screen transition-all duration-200 ${isCollapsed ? "w-25 px-1  items-center" : "w-60 px-6 items-start"}`}
         >
           <HugeiconsIcon
             icon={isCollapsed ? ArrowRight03Icon : ArrowLeft03Icon}
@@ -136,7 +146,7 @@ function App() {
                 <button
                   title={it.text}
                   key={it.target}
-                  className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5"} ${activeLocation ? "bg-[#0c261d]" : ""}`}
+                  className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5"} ${activeLocation ? "bg-[#1b1d1c]" : ""}`}
                 >
                   <Link to={it.target} className={`flex items-center gap-3`}>
                     <HugeiconsIcon
@@ -155,6 +165,7 @@ function App() {
                 </button>
               );
             })}
+            <div></div>
           </div>
         </div>
       )}
@@ -180,7 +191,11 @@ function App() {
           />
           <Route
             path="quizzes"
-            element={isAuth ? <Quizzes /> : <Navigate to={"/quizzes"} />}
+            element={isAuth ? <Quizzes /> : <Navigate to={"/login"} />}
+          />
+          <Route
+            path="/news"
+            element={isAuth ? <News /> : <Navigate to={"/login"} />}
           />
           <Route
             path="/dashboard"
