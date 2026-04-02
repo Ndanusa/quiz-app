@@ -1,33 +1,65 @@
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateQuiz from "./pages/CreateQuiz";
+import { NavLink } from "./components/SideNav.tsx";
+import { Group, Panel, Separator } from "react-resizable-panels";
 import TakeQuiz from "./pages/TakeQuiz";
+import SideNav from "./components/SideNav.tsx";
 import Settings from "./pages/Settings";
 import { BACKEND_URI } from "./config/config.ts";
-import logoImg from "./assets/logo text.svg";
+import logoImgText from "./assets/logo text.svg";
+import logoImg from "./assets/logo.svg";
+
 import SignUp from "./pages/Signup.tsx";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   BookIcon,
-  DashboardCircleIcon,
   DashboardSquareIcon,
   DiscoverSquareIcon,
+  ArrowRight03Icon,
   Logout,
   NoteAddIcon,
   Search02Icon,
   SearchIcon,
   Settings04Icon,
+  ArrowLeft03Icon,
+  Note01Icon,
+  Bookmark02Icon,
 } from "@hugeicons/core-free-icons";
 import Discover from "./pages/Discover.tsx";
+import Quizzes from "./pages/Quizzes.tsx";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const currentLocation = useLocation().pathname;
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const topLinks = [
+    {
+      text: "Dashboard",
+      target: "/dashboard",
+      icon: DashboardSquareIcon,
+    },
+    {
+      text: "Explore",
+      target: "/discover",
+      icon: DiscoverSquareIcon,
+    },
+    {
+      text: "Quizzes",
+      target: "/quizzes",
+      icon: Bookmark02Icon,
+    },
+    {
+      text: "Create",
+      target: "/create",
+      icon: NoteAddIcon,
+    },
+  ];
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -76,103 +108,57 @@ function App() {
   }
 
   return (
-    <>
-      <div className={`${isAuth ? "flex " : ""}`}>
-        {isAuth && (
-          <nav className="left-0 w-fit flex flex-col sticky gap-20 items-start px-5 pr-15 py-5 bg-[#f8f8f9] border-r border-zinc-400/30 glass h-screen">
-            <div className="w-full h-px bg-zinc-200 absolute left-0 top-90"></div>
-            <div className="w-full h-px bg-zinc-200 absolute left-0 top-22"></div>
+    <div className={`${isAuth ? "flex" : ""}`}>
+      {isAuth && (
+        <div
+          className={`sticky flex gap-20  flex-col left-0 px-3 py-5 bg-gray-200 h-screen transition-all duration-200 ${isCollapsed ? "w-30 items-center" : "w-60 items-start"}`}
+        >
+          <HugeiconsIcon
+            icon={isCollapsed ? ArrowRight03Icon : ArrowLeft03Icon}
+            className="border-2 sqc-lg border-[#d8d5d5] bg-white text-[#656565] cursor-pointer absolute p-1 top-7 -right-5 w-8 h-8"
+            size={35}
+            onClick={() =>
+              isCollapsed ? setIsCollapsed(false) : setIsCollapsed(true)
+            }
+          />
+          <div className="px-5">
+            {isCollapsed ? (
+              <img src={logoImg} alt="" className="w-15" />
+            ) : (
+              <img src={logoImgText} alt="" className="w-26" />
+            )}
+          </div>
 
-            <div>
-              <img src={logoImg} alt="" className="w-26" />
-            </div>
-            <ul className="flex flex-col items-start justify-between gap-4">
-              <li
-                className={`w-full ${currentLocation === "/dashboard" ? "bg-[#092316]" : ""} px-5 py-2 sqc-md`}
-              >
-                <Link to={`/dashboard`} className={`flex items-center gap-3`}>
-                  <HugeiconsIcon
-                    icon={DashboardCircleIcon}
-                    strokeWidth={1.6}
-                    className={`text-zinc-600`}
-                    size={18}
-                  />
-                  <p className=" text-zinc-600 text-sm">Overview</p>
-                </Link>
-              </li>
-              <li
-                className={`w-full ${currentLocation === "/create" ? "bg-[#092316]" : ""} px-5 py-2 sqc-md`}
-              >
-                <Link to={`/create`} className="flex items-center gap-3">
-                  <HugeiconsIcon
-                    icon={NoteAddIcon}
-                    strokeWidth={1.6}
-                    className="text-zinc-600"
-                    size={18}
-                  />
-                  <p className=" text-zinc-600 text-sm">Create quiz</p>
-                </Link>
-              </li>
-
-              <li
-                className={`w-full ${currentLocation === "/explore" ? "bg-[#092316]" : ""} px-5 py-2 sqc-md`}
-              >
-                <Link to={`/discover`} className="flex items-center gap-3">
-                  <HugeiconsIcon
-                    icon={DiscoverSquareIcon}
-                    strokeWidth={1.6}
-                    className="text-zinc-600"
-                    size={18}
-                  />
-                  <p className=" text-zinc-600 text-sm">Discover</p>
-                </Link>
-              </li>
-              <li
-                className={`w-full ${currentLocation === "/quizzes" ? "bg-[#092316]" : ""} px-5 py-2 sqc-md`}
-              >
-                <Link to={`/quizzes`} className="flex items-center gap-3">
-                  <HugeiconsIcon
-                    icon={BookIcon}
-                    strokeWidth={1.6}
-                    className="text-zinc-600"
-                    size={18}
-                  />
-                  <p className=" text-zinc-600 text-sm">Quizzes</p>
-                </Link>
-              </li>
-            </ul>
-            <ul className={`flex flex-col gap-8 justify-between`}>
-              <li
-                className={`w-full ${currentLocation === "/settings" ? "bg-[#092316]" : ""} px-5 py-2 sqc-md`}
-              >
-                <Link to={`/settings`} className="flex items-center gap-3">
-                  <HugeiconsIcon
-                    icon={Settings04Icon}
-                    strokeWidth={1.6}
-                    className="text-zinc-600"
-                    size={18}
-                  />
-                  <p className=" text-zinc-600 text-sm">Settings</p>
-                </Link>
-              </li>
-              <li
-                className="flex items-center gap-3 cursor-pointer"
-                onClick={() => {
-                  localStorage.clear();
-                  document.location.href = "/login";
-                }}
-              >
-                <HugeiconsIcon
-                  icon={Logout}
-                  strokeWidth={1.6}
-                  className="text-zinc-600"
-                  size={18}
-                />
-                <p className=" text-zinc-600 text-sm">Logout</p>
-              </li>
-            </ul>
-          </nav>
-        )}
+          <div className="flex flex-col gap-7">
+            {topLinks.map((it) => {
+              const activeLocation = it.target === currentLocation;
+              return (
+                <button
+                  title={it.text}
+                  key={it.target}
+                  className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5"} ${activeLocation ? "bg-[#0c261d]" : ""}`}
+                >
+                  <Link to={it.target} className={`flex items-center gap-3`}>
+                    <HugeiconsIcon
+                      icon={it.icon}
+                      size={isCollapsed ? 25 : 20}
+                      color={`${activeLocation ? "#d4d4d8" : "#30463e"}`}
+                    />
+                    {!isCollapsed && (
+                      <p
+                        className={`${activeLocation ? "text-[#bcc8c4]" : "text-[#30463e]"}`}
+                      >
+                        {it.text}
+                      </p>
+                    )}
+                  </Link>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      <div className="p-10">
         <Routes>
           <Route
             path="/"
@@ -191,6 +177,10 @@ function App() {
           <Route
             path="/signup"
             element={isAuth ? <Navigate to="/dashboard" /> : <SignUp />}
+          />
+          <Route
+            path="quizzes"
+            element={isAuth ? <Quizzes /> : <Navigate to={"/quizzes"} />}
           />
           <Route
             path="/dashboard"
@@ -229,7 +219,7 @@ function App() {
           />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }
 
