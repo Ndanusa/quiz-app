@@ -27,6 +27,7 @@ import {
   Bookmark02Icon,
   News01Icon,
   Settings03Icon,
+  LogoutSquare01Icon,
 } from "@hugeicons/core-free-icons";
 import Discover from "./pages/Discover.tsx";
 import Quizzes from "./pages/Quizzes.tsx";
@@ -38,6 +39,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const currentLocation = useLocation().pathname;
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsedWidth, setIsCollapsedWidth] = useState(false);
   const topLinks = [
     {
       text: "Dashboard",
@@ -105,7 +107,6 @@ function App() {
 
     checkAuth();
   }, []);
-  console.log(useLocation());
 
   if (loading) {
     return (
@@ -121,22 +122,38 @@ function App() {
     <div className={`${isAuth ? "flex" : ""}`}>
       {isAuth && (
         <div
-          className={`sticky flex gap-20 border-r-2 border-[#d9d9d9] flex-col left-0  py-5 bg-gray-200 h-screen transition-all duration-200 ${isCollapsed ? "w-25 px-1  items-center" : "w-60 px-6 items-start"}`}
+          className={`sticky  flex gap-20 border-r-2 border-[#dfe4e2] flex-col left-0  py-5 bg-gray-200 h-screen transition-all ease-[cubic-bezier(0.8,-0.4,0.5,1)] duration-600 ${isCollapsed ? "w-25 px-1  items-center" : "w-60 px-6 items-start"}`}
         >
           <HugeiconsIcon
             icon={isCollapsed ? ArrowRight03Icon : ArrowLeft03Icon}
-            className="border-2 sqc-lg border-[#d8d5d5] bg-white text-[#656565] cursor-pointer absolute p-1 top-7 -right-5 w-8 h-8"
+            className="border-2 sqc-lg border-[#d8d5d5] bg-white text-[#656565] cursor-col-resize absolute p-1 top-7 -right-5 w-8 h-8"
             size={35}
-            onClick={() =>
-              isCollapsed ? setIsCollapsed(false) : setIsCollapsed(true)
-            }
+            onClick={() => {
+              setIsCollapsed((prev) => {
+                return !prev;
+              });
+              // if (isCollapsed) {
+              //   setIsCollapsedWidth(false);
+              //   setTimeout(() => {
+              //     setIsCollapsed(false);
+              //   }, 1000);
+              //   setIsCollapsed(false);
+              // } else {
+              //   setIsCollapsedWidth(true);
+              //   setTimeout(() => {
+              //     setIsCollapsed(true);
+              //   }, 400);
+              // }
+            }}
           />
           <div className="px-5">
-            {isCollapsed ? (
-              <img src={logoImg} alt="" className="w-15" />
-            ) : (
-              <img src={logoImgText} alt="" className="w-26" />
-            )}
+            <Link to={"/dashboard"}>
+              {isCollapsed ? (
+                <img src={logoImg} alt="" className="w-15" />
+              ) : (
+                <img src={logoImgText} alt="" className="w-26" />
+              )}
+            </Link>
           </div>
 
           <div className="flex flex-col gap-7">
@@ -156,7 +173,7 @@ function App() {
                     />
                     {!isCollapsed && (
                       <p
-                        className={`${activeLocation ? "text-[#bcc8c4]" : "text-[#30463e]"}`}
+                        className={`${activeLocation ? "text-[#bcc8c4]" : "text-[#30463e]"} text-[15px]`}
                       >
                         {it.text}
                       </p>
@@ -165,11 +182,25 @@ function App() {
                 </button>
               );
             })}
-            <div></div>
           </div>
+          <button
+            title="logout"
+            className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5 flex gap-3"} cursor-pointer `}
+            onClick={() => {
+              localStorage.clear();
+              window.location.href = "/login";
+            }}
+          >
+            <HugeiconsIcon
+              icon={LogoutSquare01Icon}
+              color="#30463e"
+              size={isCollapsed ? 25 : 20}
+            />
+            {!isCollapsed && <p className={`text-[#30463e]`}>Logout</p>}
+          </button>
         </div>
       )}
-      <div className="p-10">
+      <div className={`${isAuth ? "p-10" : ""}`}>
         <Routes>
           <Route
             path="/"
