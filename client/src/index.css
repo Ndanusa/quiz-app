@@ -1,8 +1,7 @@
 @import "tailwindcss";
-@responsive;
 
 body {
-  font-family: "Dm sans";
+  font-family: "Dm sans", Poppins;
 }
 
 .glass-card {

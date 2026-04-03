@@ -9,8 +9,16 @@ import {
 } from "@hugeicons/core-free-icons";
 import { BACKEND_URI } from "../config/config.ts";
 
-function Dashboard() {
-  return <>hey</>;
+function Dashboard({ validUser }) {
+  return (
+    <div className="p-10">
+      <div>
+        <h1 className="text-4xl">
+          Hi, <span className="font-bold">{validUser.firstName}</span>
+        </h1>
+      </div>
+    </div>
+  );
 }
 
 export default Dashboard;
