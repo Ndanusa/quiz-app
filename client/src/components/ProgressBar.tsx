@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 export default function CircularProgress({
-  label,
   value,
   color,
   rounded,
@@ -8,7 +7,6 @@ export default function CircularProgress({
   stroke = 10,
   backgroundColor = "#d5d5d5",
 }: {
-  label: string;
   value: number;
   color: string;
   rounded?: boolean;
@@ -35,7 +33,8 @@ export default function CircularProgress({
         flexDirection: "column",
         alignItems: "center",
         gap: 10,
-      }}>
+      }}
+    >
       <div style={{ position: "relative", width: size, height: size }}>
         <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
           {/* Track */}
@@ -73,11 +72,9 @@ export default function CircularProgress({
             justifyContent: "center",
             fontSize: 18,
             fontWeight: 500,
-          }}>
-          {Math.round(animated)}%
-        </div>
+          }}
+        ></div>
       </div>
-      <span style={{ fontSize: 13, color: "#888" }}>{label}</span>
     </div>
   );
 }

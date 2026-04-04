@@ -118,7 +118,7 @@ function Login() {
       if (res.statusText === "OK") {
         localStorage.setItem("user", JSON.stringify(res.data.data));
         localStorage.setItem("token", res.data.token);
-        window.location.href = "/home";
+        window.location.href = "dashboard";
       }
     } catch (error) {
       const err = error.response.data;
@@ -148,7 +148,8 @@ function Login() {
             <img src={logoImg} alt="" className="w-25" />
             <Link
               to={`/signup`}
-              className="h-10 bg-[#1b2820] text-[#f2fff7] px-7 sqc-lg flex items-center justify-center">
+              className="h-10 bg-[#1b2820] text-[#f2fff7] px-7 sqc-lg flex items-center justify-center"
+            >
               Signup
             </Link>
           </div>
@@ -243,7 +244,8 @@ function Login() {
                 </div>
                 <Link
                   className="text-sm text-[#47c276] font-medium"
-                  to={`/reset`}>
+                  to={`/reset`}
+                >
                   Forgot password?
                 </Link>
               </div>
@@ -251,7 +253,8 @@ function Login() {
               <button
                 onClick={handleLogin}
                 disabled={loading}
-                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 focus:border-2 focus:border-[#43f186]">
+                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 focus:border-2 focus:border-[#43f186]"
+              >
                 Login
               </button>
               <div className="flex items-center justify-between py-5">
@@ -281,7 +284,8 @@ function Login() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-          }}>
+          }}
+        >
           <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#5ed38521]"></div>
           <div className="flex items-center justify-center h-full">
             <div className="container font-normal flex-col bg-[#052c1a1d] w-3/5 glass-card h-7/20 flex justify-center text-white *:py-2 px-7">
