@@ -8,9 +8,18 @@ import Discover from "../pages/Discover.tsx";
 import Quizzes from "../pages/Quizzes.tsx";
 import SignUp from "../pages/Signup.tsx";
 import News from "../pages/News.tsx";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Router({ isAuth, user }) {
+  const locationRef = useRef<string>("/dashboard");
+  const path = useLocation().pathname;
+  useEffect(() => {
+    if (isAuth) {
+      localStorage.setItem("last-route", path);
+    }
+    locationRef.current = localStorage.getItem("last-route") || "/dashboard";
+  }, [path]);
+
   return (
     <Routes>
       <Route
@@ -25,7 +34,13 @@ function Router({ isAuth, user }) {
       />
       <Route
         path="/login"
-        element={isAuth ? <Navigate to="/dashboard" replace /> : <Login />}
+        element={
+          isAuth ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Login location={locationRef.current} />
+          )
+        }
       />
       <Route
         path="/signup"

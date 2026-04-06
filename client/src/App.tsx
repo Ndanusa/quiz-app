@@ -8,11 +8,6 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const location = useLocation().pathname;
-  useEffect(() => {
-    localStorage.setItem("prev-route", location);
-    const prev = localStorage.getItem("prev-route");
-  }, [location]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

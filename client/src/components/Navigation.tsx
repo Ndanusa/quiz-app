@@ -114,7 +114,8 @@ export function Navigation({ isAuth }) {
             title="logout"
             className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5 flex gap-3"} cursor-pointer `}
             onClick={() => {
-              localStorage.clear();
+              localStorage.removeItem("user");
+              localStorage.removeItem("token");
               window.location.href = "/login";
             }}
           >

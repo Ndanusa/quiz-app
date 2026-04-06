@@ -118,7 +118,8 @@ function Login() {
       if (res.statusText === "OK") {
         localStorage.setItem("user", JSON.stringify(res.data.data));
         localStorage.setItem("token", res.data.token);
-        window.location.href = "dashboard";
+        window.location.href =
+          localStorage.getItem("last-route") || "/dashboard";
       }
     } catch (error) {
       const err = error.response.data;
