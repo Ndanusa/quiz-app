@@ -4,6 +4,10 @@ body {
   font-family: "Dm sans", Poppins;
 }
 
+
+.drop{
+  box-shadow: 0px 0px 10px -7px rgb(0 0 0 / 75%);
+}
 .glass-card {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -12,6 +16,10 @@ body {
 .glass {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+
+.nav-sh{
+  box-shadow: 24px 0px 45px -60px rgb(0 0 0 / 75%);
 }
 
 ::-ms-reveal {
@@ -71,29 +79,29 @@ body {
   border-bottom-left-radius: 15px;
 }
 
-.auth {
+.scl {
   overflow-y: scroll;
 }
 
-.auth::-webkit-scrollbar {
+.scl::-webkit-scrollbar {
   width: 0px;
   display: none;
 }
 
-.auth::-webkit-scrollbar-track {
+.scl::-webkit-scrollbar-track {
   background: transparent;
   margin-block: 20px;
   margin-inline: 20px;
   display: none;
 }
 
-.auth::-webkit-scrollbar-thumb {
+.scl::-webkit-scrollbar-thumb {
   background-color: #bdb3ff;
   border: 1px solid transparent;
   display: none;
 }
 
-.auth::-webkit-scrollbar-thumb:hover {
+.scl::-webkit-scrollbar-thumb:hover {
   background-color: #bdb3ff;
   display: none;
 }

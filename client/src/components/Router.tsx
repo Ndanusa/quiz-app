@@ -9,6 +9,7 @@ import Quizzes from "../pages/Quizzes.tsx";
 import SignUp from "../pages/Signup.tsx";
 import News from "../pages/News.tsx";
 import { useEffect, useRef, useState } from "react";
+import Profile from "../pages/Profile.tsx";
 
 function Router({ isAuth, user }) {
   const locationRef = useRef<string>("/dashboard");
@@ -49,6 +50,10 @@ function Router({ isAuth, user }) {
       <Route
         path="quizzes"
         element={isAuth ? <Quizzes /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path={`/${user.username}`}
+        element={isAuth ? <Profile /> : <Navigate to={"/login"} />}
       />
       <Route
         path="/news"

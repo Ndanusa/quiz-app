@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BACKEND_URI } from "./config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Navigation } from "./components/Navigation.tsx";
+import { InfoPanel, Navigation } from "./components/Navigation.tsx";
 import Router from "./components/Router.tsx";
 import { useLocation } from "react-router-dom";
 function App() {
@@ -56,11 +56,14 @@ function App() {
   }
 
   return (
-    <div className={`${isAuth ? "flex" : ""} bg-[#ededed]`}>
-      <Navigation isAuth={isAuth} />
-      <div className={`${isAuth ? "p-10" : ""}`}>
+    <div
+      className={`${isAuth ? "flex" : ""} bg-linear-to-r from-[#fcfcfc] to-[#ffffff] h-screen`}
+    >
+      <div>{isAuth && <Navigation isAuth={isAuth} user={user} />}</div>
+      <div className={`${isAuth ? "p-10 w-full scl" : ""} `}>
         <Router user={user} isAuth={isAuth} />
       </div>
+      <div>{isAuth && <InfoPanel isAuth={isAuth} />}</div>
     </div>
   );
 }

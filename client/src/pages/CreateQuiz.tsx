@@ -37,6 +37,17 @@ function CreateQuiz() {
     ]);
   };
 
+  const deleteQuestion = (qId) => {
+    setQuestions((prev) =>
+      prev.filter((question) => question.questionId !== qId),
+    );
+    setQuestions((prev) => {
+      return prev.map((question, i) => {
+        return { ...question, questionId: `q${i + 1}` };
+      });
+    });
+  };
+
   const updateQuestion = (index: number, field: string, value: any) => {
     setQuestions((prev) => {
       const next = [...prev];
@@ -54,18 +65,16 @@ function CreateQuiz() {
       return next;
     });
   };
-
+  function handleSubmit() {
+    const quiz = {
+      title,
+      description,
+      questions,
+    };
+    console.log(quiz);
+  }
   return (
     <div>
-      <div className="py-10">
-        <CircularProgress
-          label=""
-          value={3}
-          color="#000"
-          stroke={20}
-          rounded={false}
-        />
-      </div>
       <div>
         <h1 className="text-2xl text-center py-3 ">Create New Quiz</h1>
         <div className="flex flex-col">
@@ -103,7 +112,11 @@ function CreateQuiz() {
                     return (
                       <div key={opt.optionId}>
                         <span>{opt.optionId}</span>
-                        <input placeholder={`Option ${opt.optionId}`} />
+                        <input
+                          placeholder={`Option ${opt.optionId}`}
+                          value={opt.text}
+                          onChange={(e) => updateOption(i, oi, e.target.value)}
+                        />
                       </div>
                     );
                   })}
@@ -125,13 +138,16 @@ function CreateQuiz() {
                     })}
                   </select>
                 </div>
+                <button onClick={() => deleteQuestion(question.questionId)}>
+                  Delete
+                </button>
               </div>
             );
           })}
         </div>
         <div>
           <button onClick={addQuestion}>Add Question</button>
-          <button>Save Quiz</button>
+          <button onClick={handleSubmit}>Save Quiz</button>
         </div>
       </div>
     </div>

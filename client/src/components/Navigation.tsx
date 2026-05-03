@@ -19,10 +19,22 @@ import {
   ArrowLeft03Icon,
   Note01Icon,
   LogoutSquare01Icon,
+  Profile,
 } from "@hugeicons/core-free-icons";
-export function Navigation({ isAuth }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+
+interface NavProps {
+  isAuth: boolean;
+  user: Record<string, string>;
+}
+export function Navigation({ isAuth, user }: NavProps) {
+  const collapsedSettings =
+    JSON.parse(localStorage.getItem("isCollapsed")) || false;
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(collapsedSettings);
   const currentLocation = useLocation().pathname;
+
+  useEffect(() => {
+    localStorage.setItem("isCollapsed", JSON.stringify(isCollapsed));
+  }, [isCollapsed]);
 
   const topLinks = [
     {
@@ -55,83 +67,89 @@ export function Navigation({ isAuth }) {
       target: "/settings",
       icon: Settings03Icon,
     },
+    {
+      text: "Profile",
+      target: `/${user.username}`,
+      icon: Profile,
+    },
   ];
   return (
-    <div>
-      {isAuth && (
+    <div className="relative left-0 nav-sh">
+      <div
+        className={`relative flex justify-between flex-col left-0  py-5 bg-white h-screen transition-all ease-[cubic-bezier(0.2,1.232,0.64,1)] duration-350 ${isCollapsed ? "w-20  items-center" : "w-60 px-5 items-start"}`}
+      >
         <div
-          className={`sticky flex justify-between border-r-2 border-[#dfe4e2] flex-col left-0  py-5 bg-white h-screen transition-all ease-[cubic-bezier(1,0,0,1)] duration-250 ${isCollapsed ? "w-20  items-center" : "w-60 px-6 items-start"}`}
+          title={isCollapsed ? "Expand" : "Collapse"}
+          onClick={() => setIsCollapsed((prev) => !prev)}
+          className={"w-1 h-full top-0 absolute right-0 cursor-col-resize"}
+        ></div>
+        <button
+          className="absolute flex items-center justify-center cursor-col-resize p-1 top-7 -right-5 w-8 h-8  border-[#d8d5d5] bg-white border-2 sqc-lg text-[#656565]"
+          title={isCollapsed ? "Open Panel" : "Close Panel"}
         >
-          <button
-            className="absolute flex items-center justify-center cursor-col-resize p-1 top-7 -right-5 w-8 h-8  border-[#d8d5d5] bg-white border-2 sqc-lg text-[#656565]"
-            title={isCollapsed ? "Open Panel" : "Close Panel"}
-          >
-            <HugeiconsIcon
-              icon={isCollapsed ? ArrowRight03Icon : ArrowLeft03Icon}
-              size={35}
-              onClick={() => setIsCollapsed((prev) => !prev)}
-            />
-          </button>
-
-          <div className="px-5">
-            <Link to={"/dashboard"}>
-              {isCollapsed ? (
-                <img src={logoImg} alt="" className="w-15" />
-              ) : (
-                <img src={logoImgText} alt="" className="w-26" />
-              )}
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            {topLinks.map((it) => {
-              const activeLocation = currentLocation.startsWith(it.target);
-              return (
-                <Link
-                  key={it.target}
-                  title={it.text}
-                  to={it.target}
-                  // onClick={}
-                  className={`flex items-center gap-3 ${isCollapsed ? "sqc-xl px-2 py-2" : "sqc-md py-3 px-5"} ${activeLocation ? "bg-[#1b1d1c]" : ""}`}
-                >
-                  <HugeiconsIcon
-                    icon={it.icon}
-                    size={20}
-                    color={`${activeLocation ? "#d4d4d8" : "#30463e"}`}
-                  />
-                  {!isCollapsed && (
-                    <p
-                      className={`${activeLocation ? "text-[#bcc8c4]" : "text-[#30463e]"} text-[15px]`}
-                    >
-                      {it.text}
-                    </p>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-          <button
-            title="logout"
-            className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5 flex gap-3"} cursor-pointer `}
-            onClick={() => {
-              localStorage.removeItem("user");
-              localStorage.removeItem("token");
-              window.location.href = "/login";
-            }}
-          >
-            <HugeiconsIcon
-              icon={LogoutSquare01Icon}
-              color="#30463e"
-              size={20}
-            />
-            {!isCollapsed && <p className={`text-[#30463e]`}>Logout</p>}
-          </button>
+          <HugeiconsIcon
+            icon={isCollapsed ? ArrowRight03Icon : ArrowLeft03Icon}
+            size={35}
+            onClick={() => setIsCollapsed((prev) => !prev)}
+          />
+        </button>
+        <div className="px-5">
+          <Link to={"/dashboard"}>
+            {isCollapsed ? (
+              <img src={logoImg} alt="" className="w-15" />
+            ) : (
+              <img src={logoImgText} alt="" className="w-26" />
+            )}
+          </Link>
         </div>
-      )}
+
+        <div className="flex flex-col gap-4">
+          {topLinks.map((it) => {
+            const activeLocation = currentLocation.startsWith(it.target);
+            return (
+              <Link
+                key={it.target}
+                title={it.text}
+                to={it.target}
+                className={`flex items-center gap-3 ${isCollapsed ? "sqc-xl px-2 py-2" : "sqc-md py-2 px-5"} ${activeLocation ? "bg-[#1b1d1c]" : ""}`}
+              >
+                <HugeiconsIcon
+                  icon={it.icon}
+                  size={20}
+                  color={`${activeLocation ? "#d4d4d8" : "#30463e"}`}
+                />
+                {!isCollapsed && (
+                  <p
+                    className={`${activeLocation ? "text-[#bcc8c4]" : "text-[#30463e]"} text-[15px]`}
+                  >
+                    {it.text}
+                  </p>
+                )}
+              </Link>
+            );
+          })}
+        </div>
+        <button
+          title="logout"
+          className={` ${isCollapsed ? "sqc-xl px-3 py-3" : "sqc-md py-2 px-5 flex gap-3"} cursor-pointer `}
+          onClick={() => {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+          }}
+        >
+          <HugeiconsIcon icon={LogoutSquare01Icon} color="#30463e" size={20} />
+          {!isCollapsed && <p className={`text-[#30463e]`}>Logout</p>}
+        </button>
+      </div>
     </div>
   );
 }
 
-export function InfoPanel() {
-  return;
+export function InfoPanel({ isAuth }: { isAuth: boolean }) {
+  return (
+    <div className="relative ">
+      <div className={` bg-white h-screen w-80 `}></div>
+    </div>
+  );
 }

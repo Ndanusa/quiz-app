@@ -6,24 +6,47 @@ import {
   Plus,
   Settings01Icon,
   LockPasswordIcon,
+  Search01Icon,
+  Notification,
+  Notification01Icon,
 } from "@hugeicons/core-free-icons";
-import { BACKEND_URI } from "../config/config.ts";
-import CircularProgress from "../components/ProgressBar.tsx";
+import { BACKEND_URI, getGreeting } from "../config/config.ts";
+import abstractImage from "../assets/abstract.jpg";
+import logoImg from "../assets/logo.svg";
 
 function Dashboard({ user }) {
-  const target = {
-    taken: 380,
-    passed: 152,
-  };
-  const percentage = (target.passed / target.taken) * 100;
+  const greeting = getGreeting();
   return (
     <div className="">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-medium">
-            Hi <span className="font-bold">{user.firstName}</span>{" "}
+          <h1 className="text-2xl font-semibold">
+            {greeting}, {user.firstName}!
           </h1>
-          <p className="text-gray-500">Let's learn something today</p>
+          <p className="text-[#868686] text-sm">Let's learn something today!</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="relative flex items-center">
+            <HugeiconsIcon
+              icon={Search01Icon}
+              className="text-[#ababab] absolute left-2"
+              strokeWidth={1.7}
+              size={20}
+            />
+
+            <input
+              type="text"
+              placeholder="Search anything..."
+              className="h-10 drop bg-white placeholder:text-sm w-70 pl-9 pr-5 sqc-md rounded-lg"
+            />
+          </div>
+          <div className="w-10 h-10 bg-white flex items-center justify-center sqc-lg z-1000">
+            <HugeiconsIcon
+              className="text-[#4e4e4e] "
+              icon={Notification01Icon}
+              size={20}
+            />
+          </div>
         </div>
       </div>
     </div>
