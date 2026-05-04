@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div
-      className={`${isAuth ? "flex" : ""} bg-linear-to-r from-[#fcfcfc] to-[#ffffff] h-screen`}
+      className={`${isAuth ? "flex" : ""} bg-linear-to-r from-[#f4f5f4] to-[#f5f7f6] h-screen`}
     >
       <div>{isAuth && <Navigation isAuth={isAuth} user={user} />}</div>
       <div className={`${isAuth ? "p-10 w-full scl" : ""} `}>

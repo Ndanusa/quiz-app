@@ -2,7 +2,10 @@ import { useState } from "react";
 import { BACKEND_URI } from "../config/config.ts";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "../components/ProgressBar.tsx";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Upload03Icon } from "@hugeicons/core-free-icons";
 function CreateQuiz() {
+  1;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [privacy, setPrivacy] = useState("public");
@@ -77,34 +80,53 @@ function CreateQuiz() {
   }
   return (
     <div>
-      <div>
-        <h1 className="text-2xl text-center py-3 ">Create New Quiz</h1>
-        <div className="flex flex-col">
-          <input
-            className="h-10 px-3 border-2 border-[#c8d0ce] rounded-md sqc-lg"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            placeholder="Quiz title"
-          />
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Quiz description"
-          ></textarea>
-          <div>
-            <h1 className="text-xl">Privacy</h1>
-            <select
-              value={privacy}
-              onChange={(e) => {
-                setPrivacy(e.target.value);
-              }}
-            >
-              <option value="public">Public</option>
-              <option value="private">Private</option>
-            </select>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl py-3 ">Create New Quiz</h1>
+        <button
+          onClick={handleSubmit}
+          className="text-xl flex items-center gap-2 text-[#d1e2db] bg-[#03472b] px-5 py-2 sqc-md"
+        >
+          <HugeiconsIcon icon={Upload03Icon} size={17} />
+          Upload
+        </button>
+      </div>
+      <div className="flex *:py-5 *:px-10">
+        <div className="flex-1 bg-white">
+          <div className="flex flex-col">
+            <input
+              className="h-10 px-3 border-2 placeholder:text-[#a4a4a4] border-[#c4ccc8] w-7/10 rounded-md sqc-md"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+              placeholder="Quiz title"
+            />
+            <textarea
+              className=" placeholder:text-[#a4a4a4] border-2 border-[#c4ccc8] sqc-lg"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Quiz description"
+            ></textarea>
+            <div>
+              <h1 className="text-xl">Privacy</h1>
+              <select
+                value={privacy}
+                onChange={(e) => {
+                  setPrivacy(e.target.value);
+                }}
+              >
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div>
+
+        <div className="flex-2/12">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-medium">Questions</h1>
+            <div className="flex items-center gap-4">
+              <button onClick={addQuestion}>Add Question</button>
+            </div>
+          </div>
           {questions.map((question, i) => {
             return (
               <div key={question.questionId}>
@@ -158,10 +180,6 @@ function CreateQuiz() {
               </div>
             );
           })}
-        </div>
-        <div>
-          <button onClick={addQuestion}>Add Question</button>
-          <button onClick={handleSubmit}>Save Quiz</button>
         </div>
       </div>
     </div>

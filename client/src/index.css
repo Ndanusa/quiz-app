@@ -117,23 +117,37 @@ body {
   }
   .sqc-md {
     corner-shape: superellipse(2);
-    border-radius: 20px;
+    border-radius: 15px;
   }
   .sqc-lg {
     corner-shape: superellipse(2);
-    border-radius: 30px;
+    border-radius: 20px;
   }
   .sqc-xl {
     corner-shape: superellipse(2);
-    border-radius: 40px;
+    border-radius: 25px;
   }
   .sqc-2xl {
     corner-shape: superellipse(2);
-    border-radius: 50px;
+    border-radius: 30px;
   }
   .sqc-3xl {
     corner-shape: superellipse(2);
-    border-radius: 80px;
+    border-radius: 35px;
+  }
+   .sqc-4xl {
+    corner-shape: superellipse(2);
+    border-radius: 40px;
+  }
+
+  .sqc-5xl {
+    corner-shape: superellipse(2);
+    border-radius: 45px;
+  }
+
+  .sqc-6xl {
+    corner-shape: superellipse(2);
+    border-radius: 50px;
   }
 
   .sqc-2xl-tr {
