@@ -145,11 +145,3 @@ export function Navigation({ isAuth, user }: NavProps) {
     </div>
   );
 }
-
-export function InfoPanel({ isAuth }: { isAuth: boolean }) {
-  return (
-    <div className="relative ">
-      <div className={` bg-white h-screen w-80 `}></div>
-    </div>
-  );
-}

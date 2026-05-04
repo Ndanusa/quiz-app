@@ -52,7 +52,7 @@ function Router({ isAuth, user }) {
         element={isAuth ? <Quizzes /> : <Navigate to={"/login"} />}
       />
       <Route
-        path={`/${user.username}`}
+        path={`/${user?.username}`}
         element={isAuth ? <Profile /> : <Navigate to={"/login"} />}
       />
       <Route

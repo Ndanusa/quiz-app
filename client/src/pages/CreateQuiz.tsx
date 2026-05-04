@@ -5,6 +5,7 @@ import CircularProgress from "../components/ProgressBar.tsx";
 function CreateQuiz() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [privacy, setPrivacy] = useState("public");
   const [questions, setQuestions] = useState([
     {
       points: 10,
@@ -70,6 +71,7 @@ function CreateQuiz() {
       title,
       description,
       questions,
+      privacy,
     };
     console.log(quiz);
   }
@@ -89,6 +91,18 @@ function CreateQuiz() {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Quiz description"
           ></textarea>
+          <div>
+            <h1 className="text-xl">Privacy</h1>
+            <select
+              value={privacy}
+              onChange={(e) => {
+                setPrivacy(e.target.value);
+              }}
+            >
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
         </div>
         <div>
           {questions.map((question, i) => {

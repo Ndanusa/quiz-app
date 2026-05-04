@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BACKEND_URI } from "./config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { InfoPanel, Navigation } from "./components/Navigation.tsx";
+import { Navigation } from "./components/Navigation.tsx";
 import Router from "./components/Router.tsx";
 import { useLocation } from "react-router-dom";
 function App() {
@@ -63,7 +63,6 @@ function App() {
       <div className={`${isAuth ? "p-10 w-full scl" : ""} `}>
         <Router user={user} isAuth={isAuth} />
       </div>
-      <div>{isAuth && <InfoPanel isAuth={isAuth} />}</div>
     </div>
   );
 }
