@@ -6,6 +6,10 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowDownDoubleIcon,
   ArrowUpDoubleIcon,
+  PlusMinus01Icon,
+  PlusSignCircleIcon,
+  PlusSignIcon,
+  PlusSignSquareIcon,
   Upload03Icon,
 } from "@hugeicons/core-free-icons";
 function CreateQuiz() {
@@ -121,81 +125,81 @@ function CreateQuiz() {
           Upload
         </button>
       </div>
-      <div className="flex item-center gap-10 *:py-5 *:px-10 *:bg-white">
-        <div className="flex-1">
-          <div className="flex flex-col">
-            <h1 className="font-medium pt-3 pb-1 px-2">Title</h1>
-            <input
-              className="h-10 px-3 border placeholder:text-[#a4a4a4] placeholder:text-sm placeholder:font-light border-[#c4ccc8] w-7/10 rounded-md sqc-md hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-              placeholder="Quiz title"
-            />
-            <h1 className="font-medium pt-3 pb-1 px-2">Description</h1>
-            <textarea
-              className=" placeholder:text-[#a4a4a4] placeholder:text-sm placeholder:font-light px-3 py-1 border border-[#c4ccc8] sqc-md hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Quiz description"
-            ></textarea>
-            <div>
-              <h1 className="font-medium pt-3 pb-1 px-2">Privacy</h1>
-              <div className="w-64 relative" ref={ref}>
-                {/* SELECT BUTTON */}
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className=" w-8/10 flex justify-between text-sm items-center px-4 py-2 bg-white border border-[#c4ccc8] sqc-md text-[#a4a4a4] hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
-                >
-                  <span className="text-sm">{selected.label}</span>
-                  <span
-                    className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+      <div>
+        <div className="flex flex-wrap *:px-5 *:py-10 *:bg-white gap-4 *:shadow-lg">
+          <div className="flex-1 sqc-lg">
+            <button
+              onClick={addQuestion}
+              className="flex items-center gap-2 cursor-pointer transition-colors duration-300 hover:text-[#4be086] text-[#0fcf5c] font-medium"
+            >
+              <HugeiconsIcon icon={PlusSignIcon} size={17} strokeWidth={2.2} />
+              Add Question
+            </button>
+            <div className="flex flex-col">
+              <h1 className="font-medium pt-3 pb-1 px-2">Title</h1>
+              <input
+                className="h-10 px-3 border placeholder:text-[#a4a4a4] placeholder:text-sm placeholder:font-light border-[#c4ccc8] w-7/10 rounded-md sqc-md hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                placeholder="Quiz title"
+              />
+              <h1 className="font-medium pt-3 pb-1 px-2">Description</h1>
+              <textarea
+                className=" placeholder:text-[#a4a4a4] placeholder:text-sm placeholder:font-light px-3 py-1 border border-[#c4ccc8] sqc-md hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Quiz description"
+              ></textarea>
+              <div>
+                <h1 className="font-medium pt-3 pb-1 px-2">Privacy</h1>
+                <div className="w-64 relative" ref={ref}>
+                  {/* SELECT BUTTON */}
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className=" w-8/10 flex justify-between text-sm items-center px-4 py-2 bg-white border border-[#c4ccc8] sqc-md text-[#a4a4a4] hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
                   >
-                    <HugeiconsIcon icon={ArrowDownDoubleIcon} size={18} />
-                  </span>
-                </button>
+                    <span className="text-sm">{selected.label}</span>
+                    <span
+                      className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    >
+                      <HugeiconsIcon icon={ArrowDownDoubleIcon} size={18} />
+                    </span>
+                  </button>
 
-                {/* DROPDOWN OPTIONS */}
-                {isOpen && (
-                  <ul
-                    className={`absolute mt-2 w-6/10 bg-white border p-3 transform transition-all duration-200 origin-top border-gray-200 sqc-lg shadow-lg overflow-hidden z-10 ${
-                      isOpen
-                        ? "opacity-100 scale-100 translate-y-0"
-                        : "opacity-0 scale-95 -translate-y-2"
-                    }`}
-                  >
-                    {options.map((option) => (
-                      <li
-                        key={option.value}
-                        onClick={() => {
-                          setSelected(option);
-                          setIsOpen(false);
-                        }}
-                        className={` px-4 py-2 cursor-pointer text-sm transition-colors ${
-                          selected.value === option.value
-                            ? "bg-[#c3ffe2] text-[#24ad6d] sqc-sm"
-                            : "text-gray-700 hover:bg-[#eeeeee]"
-                        } `}
-                      >
-                        {option.label}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  {/* DROPDOWN OPTIONS */}
+                  {isOpen && (
+                    <ul
+                      className={`absolute mt-2 w-6/10 bg-white border p-3 transform transition-all duration-200 origin-top border-gray-200 sqc-lg shadow-lg overflow-hidden z-10 ${
+                        isOpen
+                          ? "opacity-100 scale-100 translate-y-0"
+                          : "opacity-0 scale-95 -translate-y-2"
+                      }`}
+                    >
+                      {options.map((option) => (
+                        <li
+                          key={option.value}
+                          onClick={() => {
+                            setSelected(option);
+                            setIsOpen(false);
+                          }}
+                          className={` px-4 py-2 cursor-pointer text-sm transition-colors ${
+                            selected.value === option.value
+                              ? "bg-[#c3ffe2] text-[#24ad6d] sqc-sm"
+                              : "text-gray-700 hover:bg-[#eeeeee]"
+                          } `}
+                        >
+                          {option.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex-2/12">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-medium">Questions</h1>
-            <div className="flex items-center gap-4">
-              <button onClick={addQuestion}>Add Question</button>
             </div>
           </div>
           {questions.map((question, i) => {
             return (
-              <div key={question.questionId}>
+              <div key={question.questionId} className="flex-">
                 <div>
                   <p>Question {i + 1}</p>
                   <span>{question.points} pts</span>
