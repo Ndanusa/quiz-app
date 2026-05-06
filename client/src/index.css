@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  font-family: "Dm sans", Poppins;
+  font-family: Inter;
 }
 
 
@@ -18,9 +18,6 @@ body {
   -webkit-backdrop-filter: blur(5px);
 }
 
-.nav-sh{
-  box-shadow: 24px 0px 45px -60px rgb(0 0 0 / 75%);
-}
 
 ::-ms-reveal {
   display: none;

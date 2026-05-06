@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BACKEND_URI } from "./config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Navigation } from "./components/Navigation.tsx";
+import AltNavigation, { Navigation } from "./components/Navigation.tsx";
 import Router from "./components/Router.tsx";
 import { useLocation } from "react-router-dom";
 function App() {
@@ -57,10 +57,10 @@ function App() {
 
   return (
     <div
-      className={`${isAuth ? "flex" : ""} bg-linear-to-r from-[#f4f5f4] to-[#f5f7f6] h-screen`}
+      className={`${isAuth ? "flex" : ""} bg-linear-to-r from-[#f8fcfa] to-[#f1f9f3] h-screen`}
     >
-      <div>{isAuth && <Navigation isAuth={isAuth} user={user} />}</div>
-      <div className={`${isAuth ? "p-10 w-full scl" : ""} `}>
+      <div>{isAuth && <AltNavigation isAuth={isAuth} user={user} />}</div>
+      <div className={`${isAuth ? "p-5 w-full scl" : ""} `}>
         <Router user={user} isAuth={isAuth} />
       </div>
     </div>
