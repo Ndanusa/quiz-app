@@ -3,7 +3,7 @@ import axios from "axios";
 import { BACKEND_URI, getGreeting } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
 import studyImg from "../assets/study.jpg";
-import logoImg from "../assets/logo text.svg";
+import logoImg from "../assets/logo text - 1.svg";
 import googleImg from "../assets/google.svg";
 import xImage from "../assets/x.svg";
 import {
@@ -149,7 +149,7 @@ function Login() {
             <img src={logoImg} alt="" className="w-25" />
             <Link
               to={`/signup`}
-              className="h-10 bg-[#1b2820] text-[#f2fff7] px-7 sqc-lg flex items-center justify-center"
+              className="h-10 bg-[#1b1d28] text-[#f2f6ff] px-7 sqc-lg flex items-center justify-center"
             >
               Signup
             </Link>
@@ -179,7 +179,7 @@ function Login() {
                       name="email"
                       ref={emailRef}
                       placeholder="Enter your email"
-                      className={`placeholder:text-sm h-12 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 px-3 sqc-lg rounded-md w-full mt-2 text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181] `}
+                      className={`placeholder:text-sm h-12 text-sm disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#ecedf3] border-2 border-[#ecedf3] hover:border-[#0e24e8] py-2 px-3 sqc-lg rounded-md w-full mt-2 text-[#272a30] focus:outline-none focus:ring-2 focus:ring-[#0e24e8] placeholder:text-[#818181] `}
                       type="email"
                     />
                     {isTypingEmail && (
@@ -208,7 +208,7 @@ function Login() {
                       onChange={passwordInput}
                       name="password"
                       placeholder="Enter your password"
-                      className={`placeholder:text-sm h-12 text-sm px-3 pr-11 disabled:opacity-70 disabled:bg-gray-400 disabled:text-gray-100 bg-[#f0f3f1] py-2 sqc-lg rounded-md mt-2 w-full text-[#14794f] focus:outline-2 focus:outline-[#5ef7b7] border-0 placeholder:text-[#818181] `}
+                      className={`placeholder:text-sm h-12 text-sm px-3 pr-11 disabled:opacity-70 border-[#ecedf3] border-2 hover:border-[#0e24e8] disabled:bg-gray-400 disabled:text-gray-100 bg-[#ecedf3] py-2 sqc-lg rounded-md mt-2 w-full text-[#272a30] focus:ring-2 focus:outline-none focus:ring-[#0e24e8] placeholder:text-[#818181] `}
                       type={passwordState}
                       autoComplete="on"
                     />
@@ -244,7 +244,7 @@ function Login() {
                   />
                 </div>
                 <Link
-                  className="text-sm text-[#47c276] font-medium"
+                  className="text-sm text-[#0e24e8] font-medium"
                   to={`/reset`}
                 >
                   Forgot password?
@@ -254,7 +254,7 @@ function Login() {
               <button
                 onClick={handleLogin}
                 disabled={loading}
-                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 focus:border-2 focus:border-[#43f186]"
+                className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-12 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5"
               >
                 Login
               </button>
@@ -273,7 +273,7 @@ function Login() {
               </div>
               <div className="text-center">
                 <h1 className="text-zinc-700">Feel free to contact us</h1>
-                <p className="text-[#47c276]">support@quix.edu</p>
+                <p className="text-[#0e24e8]">support@quix.edu</p>
               </div>
             </div>
           </div>
@@ -287,9 +287,9 @@ function Login() {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#5ed38521]"></div>
+          <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#555fbd21]"></div>
           <div className="flex items-center justify-center h-full">
-            <div className="container font-normal flex-col bg-[#052c1a1d] w-3/5 glass-card h-7/20 flex justify-center text-white *:py-2 px-7">
+            <div className="container font-normal flex-col bg-[#0b0e2f21] w-3/5 glass-card h-7/20 flex justify-center text-white *:py-2 px-7">
               <h1 className="text-2xl">Study smarter, Finish faster</h1>
               <p className="text-sm w-5/6">
                 Explore precision learning tools designed to help you retain

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BACKEND_URI } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { PlusSignIcon, Upload03Icon } from "@hugeicons/core-free-icons";
-import DropdownMenu from "../components/Dropdown.tsx";
+import DropdownMenu from "../component/Components.tsx";
 function CreateQuiz() {
   const options = [
     { value: "private", label: "Private" },
@@ -111,7 +111,7 @@ function CreateQuiz() {
                 <h1 className="font-medium  pb-1 px-2">Privacy</h1>
                 <DropdownMenu
                   options={options}
-                  buttonClassName="w-8/10 flex justify-between items-center px-4 py-2 bg-[#f1f5f2] border-2 border-[#e1eae5] sqc-md text-[#6a6a6a] hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
+                  className="w-8/10 flex justify-between items-center px-4 py-2 bg-[#f1f5f2] border-2 border-[#e1eae5] sqc-md text-[#6a6a6a] hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
                 />
               </div>
               <h1 className="font-medium pt-3 pb-1 px-2">Title</h1>

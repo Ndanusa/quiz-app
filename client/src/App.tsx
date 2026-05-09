@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { BACKEND_URI } from "./config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
-import AltNavigation, { Navigation } from "./components/Navigation.tsx";
-import Router from "./components/Router.tsx";
+import { SideNavigation, TopNavigation } from "./component/Components.tsx";
+import Router from "./component/Router.tsx";
 import { useLocation } from "react-router-dom";
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -56,11 +56,10 @@ function App() {
   }
 
   return (
-    <div
-      className={`${isAuth ? "flex" : ""} bg-linear-to-r from-[#f8fcfa] to-[#f1f9f3] h-screen`}
-    >
-      <div>{isAuth && <AltNavigation isAuth={isAuth} user={user} />}</div>
-      <div className={`${isAuth ? "p-5 w-full scl" : ""} `}>
+    <div className={`${isAuth ? "flex" : ""} bg-[#f8f9fc] h-screen`}>
+      <div>{isAuth && <SideNavigation isAuth={isAuth} user={user} />}</div>
+      <div className={`${isAuth ? " w-full scl" : ""} `}>
+        {isAuth ? <TopNavigation /> : ""}
         <Router user={user} isAuth={isAuth} />
       </div>
     </div>

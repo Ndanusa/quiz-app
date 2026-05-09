@@ -1,9 +1,9 @@
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import Login from "../pages/Login";
-import Dashboard from "../pages/Dashboard";
-import CreateQuiz from "../pages/CreateQuiz";
-import TakeQuiz from "../pages/TakeQuiz";
-import Settings from "../pages/Settings";
+import Login from "../pages/Login.tsx";
+import Dashboard from "../pages/Dashboard.tsx";
+import CreateQuiz from "../pages/CreateQuiz.tsx";
+import TakeQuiz from "../pages/TakeQuiz.tsx";
+import Settings from "../pages/Settings.tsx";
 import Discover from "../pages/Discover.tsx";
 import Quizzes from "../pages/Quizzes.tsx";
 import SignUp from "../pages/Signup.tsx";
