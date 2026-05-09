@@ -139,6 +139,105 @@ interface PropsInterface {
   className: string;
   dropdownPos: string;
 }
+
+export function Select({
+  options,
+  value,
+  onChange,
+  placeholder = "Select an option",
+  className,
+  width = "w-50",
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animate, setAnimate] = useState(false);
+
+  const ref = useRef(null);
+
+  // OPEN/CLOSE ANIMATION
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+
+      requestAnimationFrame(() => {
+        setAnimate(true);
+      });
+    } else {
+      setAnimate(false);
+
+      const timeout = setTimeout(() => {
+        setIsVisible(false);
+      }, 200);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isOpen]);
+
+  // CLOSE ON OUTSIDE CLICK
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="w-fit relative" ref={ref}>
+      {/* SELECT BUTTON */}
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={className}
+      >
+        <span>{value ? value.label : placeholder}</span>
+        <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>
+          <HugeiconsIcon icon={ArrowDown} size={18} />
+        </span>
+      </button>
+
+      {/* OPTIONS */}
+      {isVisible && (
+        <ul
+          className={`absolute mt-2 ${width} bg-white border p-3 left-0 transform transition-all duration-200 origin-top border-gray-200 sqc-lg shadow-lg overflow-hidden z-50 ${
+            isOpen
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 -translate-y-2"
+          }`}
+        >
+          {options.map((option) => (
+            <li
+              key={option.value}
+              onClick={() => {
+                onChange(option);
+                setIsOpen(false);
+              }}
+              className={` px-4 py-2 cursor-pointer text-sm transition-colors ${
+                value?.value === option.value
+                  ? "text-[#0e24e8] flex items-center justify-between"
+                  : "text-[#4e4e4e] hover:bg-[#eeeeee]"
+              } `}
+            >
+              {option.label}
+              {value?.value === option.value ? (
+                <HugeiconsIcon icon={CheckmarkCircleIcon} size={16} />
+              ) : (
+                ""
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export default function DropdownMenu({
   options,
   className,
