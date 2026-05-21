@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BACKEND_URI } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { PlusSignIcon, Upload03Icon } from "@hugeicons/core-free-icons";
-import DropdownMenu from "../component/Components.tsx";
+import { Select } from "../component/Components.tsx";
 function CreateQuiz() {
   const options = [
     { value: "private", label: "Private" },
@@ -10,7 +10,7 @@ function CreateQuiz() {
   ];
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [privacy, setPrivacy] = useState("public");
+  const [selected, setSelected] = useState(null);
   const [questions, setQuestions] = useState([
     {
       points: 10,
@@ -77,7 +77,6 @@ function CreateQuiz() {
       title,
       description,
       questions,
-      privacy,
     };
     console.log(quiz);
   }
@@ -109,9 +108,15 @@ function CreateQuiz() {
             <div className="px-7 py-5">
               <div>
                 <h1 className="font-medium  pb-1 px-2">Privacy</h1>
-                <DropdownMenu
-                  options={options}
-                  className="w-8/10 flex justify-between items-center px-4 py-2 bg-[#f1f5f2] border-2 border-[#e1eae5] sqc-md text-[#6a6a6a] hover:border-[#48c58a] focus:outline-none focus:ring-2 focus:ring-[#48c58a]"
+                <Select
+                  className="flex items-center w-full border-2"
+                  options={[
+                    { label: "Public", value: "public" },
+                    { label: "Private", value: "private" },
+                  ]}
+                  value={selected}
+                  onChange={setSelected}
+                  width="w-45"
                 />
               </div>
               <h1 className="font-medium pt-3 pb-1 px-2">Title</h1>

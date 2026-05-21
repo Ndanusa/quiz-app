@@ -3,20 +3,10 @@ import axios from "axios";
 import { BACKEND_URI, getGreeting } from "../config/config.ts";
 import { HugeiconsIcon } from "@hugeicons/react";
 import studyImg from "../assets/study.jpg";
-import logoImg from "../assets/logo text - 1.svg";
+import logoImg from "../assets/logo text light.svg";
 import googleImg from "../assets/google.svg";
 import xImage from "../assets/x.svg";
-import {
-  Mail01Icon,
-  LockPasswordIcon,
-  ViewIcon,
-  ViewOffIcon,
-  GoogleIcon,
-  TwitterIcon,
-  X,
-  NewTwitterIcon,
-  Tick02Icon,
-} from "@hugeicons/core-free-icons";
+import { X, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Link } from "react-router-dom";
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);

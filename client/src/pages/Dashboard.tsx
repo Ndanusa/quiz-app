@@ -1,74 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  Home01Icon,
-  Plus,
-  Settings01Icon,
-  LockPasswordIcon,
-  Search01Icon,
-  Notification,
-  Notification01Icon,
   Calendar,
-  Download,
+  Download02Icon,
+  Fire,
+  Fire02Icon,
+  Fire03Icon,
 } from "@hugeicons/core-free-icons";
-import { BACKEND_URI, getGreeting } from "../config/config.ts";
-import abstractImage from "../assets/abstract.jpg";
-import logoImg from "../assets/logo.svg";
-import DropdownMenu, { Select } from "../component/Components.tsx";
+import { BACKEND_URI } from "../config/config.ts";
+import { Select } from "../component/Components.tsx";
 
 function Dashboard({ user }) {
-  const greeting = getGreeting();
   const [selected, setSelected] = useState(null);
-  useEffect(() => {});
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
   return (
-    <div className="p-10">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">Dashboard</h1>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center bg-white px-4 h-10 rounded-full border-[#f3f3f3] border-2">
-            <p className="flex items-center text-[#808080] gap-3 h-full border-r-2 pr-3 border-[#f3f3f3]">
-              <HugeiconsIcon icon={Calendar} size={17} />
-              <span className="text-sm">Apr 1, 2026 - May 1, 2026</span>
-            </p>
-            <div className="pl-4">
-              <Select
-                className="flex items-center w-full text-sm gap-2 text-[#808080]"
-                options={[
-                  { label: "Last hour", value: 1 },
-                  { label: "24 Hours", value: 24 },
-                  { label: "1 Week", value: 168 },
-                  { label: "2 Weeks", value: 336 },
-                  { label: "30 Days", value: 720 },
-                  { label: "3 Months", value: 2160 },
-                  { label: "6 Months", value: 4320 },
-                  { label: "1 Year", value: 65700 },
-                ]}
-                value={selected}
-                onChange={setSelected}
-              />
-
-              {/* <DropdownMenu
-                className="flex items-center gap-2 text-[#808080]"
-                width="w-50"
-                dropdownPos="left"
-                options={[
-                  { label: "Last hour", value: 1 },
-                  { label: "24 Hours", value: 24 },
-                  { label: "1 Week", value: 168 },
-                  { label: "2 Weeks", value: 336 },
-                  { label: "30 Days", value: 720 },
-                  { label: "3 Months", value: 2160 },
-                  { label: "6 Months", value: 4320 },
-                  { label: "1 Year", value: 65700 },
-                ]}
-              /> */}
-            </div>
-          </div>
-          <button className="bg-[#3649f0] rounded-full flex items-center gap-2 justify-center text-white cursor-pointer h-10 px-4 text-sm">
-            <HugeiconsIcon icon={Download} size={17} />
-            Export
-          </button>
+    <div className="p-10 h-full">
+      <div>
+        <h1 className="text-xl font-medium">My Progress</h1>
+        <div className="w-full bg-[#30334f] px-10 py-5 sqc-xl text-white">
+          <p className="text-lg font-medium">
+            Hi, <span className="capitalize">{user.firstName}</span>
+          </p>
         </div>
       </div>
     </div>

@@ -1,22 +1,11 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import studyImg from "../assets/study.jpg";
-import logoImg from "../assets/logo text.svg";
+import logoImg from "../assets/logo text light.svg";
 import googleImg from "../assets/google.svg";
 import xImage from "../assets/x.svg";
 import { getGreeting, BACKEND_URI } from "../config/config";
 import axios from "axios";
-import {
-  Mail01Icon,
-  LockPasswordIcon,
-  ViewIcon,
-  ViewOffIcon,
-  GoogleIcon,
-  TwitterIcon,
-  X,
-  NewTwitterIcon,
-  Tick02Icon,
-  GraduateMaleIcon,
-} from "@hugeicons/core-free-icons";
+import { X, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 
@@ -118,7 +107,8 @@ function SignUp() {
           <img src={logoImg} alt="" className="w-25" />
           <Link
             to={`/login`}
-            className="h-10 bg-[#1b2820] text-[#f2fff7] px-7 sqc-lg flex items-center justify-center">
+            className="h-10 bg-[#1b2820] text-[#f2fff7] px-7 sqc-lg flex items-center justify-center"
+          >
             Login
           </Link>
         </div>
@@ -306,7 +296,8 @@ function SignUp() {
             <button
               onClick={handleSignup}
               disabled={loading}
-              className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-10 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 focus:border-2 focus:border-[#43f186]">
+              className="bg-[#1b2820] cursor-pointer text-[#f2fff7] font-medium h-10 py-1.5 sqc-lg rounded-md disabled:bg-zinc-300 disabled:text-zinc-800 w-full mt-5 focus:border-2 focus:border-[#43f186]"
+            >
               Signup
             </button>
             <div className="flex items-center justify-between py-5">
@@ -336,7 +327,8 @@ function SignUp() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-        }}>
+        }}
+      >
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#5ed38521]"></div>
         <div className="flex items-center justify-center h-full">
           <div className="container font-normal flex-col bg-[#052c1a1d] w-3/5 glass-card h-7/20 flex justify-center text-white *:py-2 px-7">

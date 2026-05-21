@@ -8,7 +8,7 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const path = useLocation().pathname.split("/")[1];
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -56,10 +56,12 @@ function App() {
   }
 
   return (
-    <div className={`${isAuth ? "flex" : ""} bg-[#f8f9fc] h-screen`}>
+    <div
+      className={`${isAuth ? "flex" : ""} dark:bg-[#2c2d33] bg-[#f8f9fc] h-screen`}
+    >
       <div>{isAuth && <SideNavigation isAuth={isAuth} user={user} />}</div>
       <div className={`${isAuth ? " w-full scl" : ""} `}>
-        {isAuth ? <TopNavigation /> : ""}
+        {isAuth ? <TopNavigation page={path} /> : ""}
         <Router user={user} isAuth={isAuth} />
       </div>
     </div>
